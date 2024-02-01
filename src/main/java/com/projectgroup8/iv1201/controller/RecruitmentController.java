@@ -1,4 +1,4 @@
-package com.projectgroup8.iv1201;
+package com.projectgroup8.iv1201.controller;
 
 import java.sql.Statement;
 import java.sql.Connection;

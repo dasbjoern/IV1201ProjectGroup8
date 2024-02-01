@@ -40,6 +40,7 @@ public class RecruitmentController {
         entityFactory.close();
 		
 			model.addAttribute("test", name);
+			
 		return "hello";
 	}
 

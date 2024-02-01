@@ -1,18 +1,22 @@
-// package com.projectgroup8.iv1201;
+package com.projectgroup8.iv1201;
 
-// import org.springframework.boot.SpringApplication;
-// import org.springframework.boot.autoconfigure.SpringBootApplication;
-// import org.springframework.context.annotation.Bean;
-// import org.springframework.context.annotation.Configuration;
-// import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-// import org.thymeleaf.spring6.SpringTemplateEngine;
-// import org.thymeleaf.spring6.view.ThymeleafViewResolver;
-// import org.thymeleaf.templateresolver.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.thymeleaf.spring6.SpringTemplateEngine;
+import org.thymeleaf.spring6.view.ThymeleafViewResolver;
+import org.thymeleaf.templateresolver.*;
 
+import javax.sql.DataSource;
 
-// @EnableWebMvc
-// @Configuration
-// public class ConfigureApp {
+import org.springframework.boot.jdbc.DataSourceBuilder;
+
+@EnableWebMvc
+@Configuration
+public class ConfigureApp {
     
 //     @Bean
 //     public ServletContextTemplateResolver templateResolver() {
@@ -38,4 +42,15 @@
 //     return viewResolver;
 // }
 
-// }
+    // @Bean
+    // public DataSource dataSource(){
+    //     DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
+    //     // dataSourceBuilder.driverClassName("org.postgresql.Driver");
+
+    //     dataSourceBuilder.url("jdbc:postgresql://127.0.0.1:5432/test");
+    //     dataSourceBuilder.username("postgres");
+    //     dataSourceBuilder.password("bjorn123");
+
+    //     return dataSourceBuilder.build();
+    // }
+}

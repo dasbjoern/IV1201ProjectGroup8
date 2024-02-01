@@ -5,6 +5,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,27 +29,17 @@ public class RecruitmentController {
 //example code.
 @GetMapping("/")
 	public String hello(Model model) {
-
-		//TEMP TEST CODE from prev course. Björn
-
-		// Connection connectDB = null;
-		// String oneResult = "";
-
-		// try{
-		//  connectDB = dataSource.getConnection();
-        //     //start new query
-
-           
-        //     Statement derbyQuery = connectDB.createStatement(); 
-        //     ResultSet queryResults = derbyQuery.executeQuery("select name from person");
-		// 	connectDB.close();
-		// 	oneResult = (String)queryResults.getString("table"); //first name
-		// 	model.addAttribute("name", oneResult);
-
-
-		// }catch(SQLException  e){
-				//system.out.println(e.getMessage());
-			//    }
+		
+		EntityManagerFactory entityFactory = Persistence.createEntityManagerFactory("ProjectPU");
+        EntityManager entityM = entityFactory.createEntityManager();
+        Query queryName = entityM.createNamedQuery("Competence.findname");
+        queryName.setFirstResult(0);
+		queryName.setMaxResults(1);
+		String name = (String)queryName.getSingleResult();
+        entityM.close();
+        entityFactory.close();
+		
+			model.addAttribute("test", name);
 		return "hello";
 	}
 

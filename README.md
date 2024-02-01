@@ -25,5 +25,5 @@ java -jar /target/iv1201projectgroup8-0.0.1-SNAPSHOT.jar
 
 #Server will run on localhost:8080
 
-Can run with  
+#Can run with  
 mvn spring-boot:run

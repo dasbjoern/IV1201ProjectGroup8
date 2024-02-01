@@ -10,6 +10,7 @@ cd IV1201ProjectGroup8
 #with maven installed
 
 mvn install
+#use ' mvn clean install ' if there are any problems with building.
 
 java -jar /target/iv1201projectgroup8-0.0.1-SNAPSHOT.jar
 

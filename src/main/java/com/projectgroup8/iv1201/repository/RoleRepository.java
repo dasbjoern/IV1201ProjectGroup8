@@ -7,6 +7,6 @@ import com.projectgroup8.iv1201.model.Role;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long>{
-    Role findByRoleId(Long roleId);
+    Role findByRoleId(long roleId);
     Role findByName(String name);
 }

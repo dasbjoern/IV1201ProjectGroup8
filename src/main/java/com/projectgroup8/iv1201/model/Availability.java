@@ -22,18 +22,18 @@ public class Availability{
     @Column(name="availability_id")
     private long id; 
     
-    @ManyToOne
-    @JoinColumn(name = "person_id", referencedColumnName = "person_id")
-    private Person person;
+    // @ManyToOne
+    // @JoinColumn(name = "person_id", referencedColumnName = "person_id")
+    // private Person person;
     
     @Column(name="person_id")
-    private long person_id;
+    private long personId;
 
     @Column(name="from_date")
-    private Date from_date;
+    private Date fromDate;
 
     @Column(name="to_date")
-    private Date to_date;
+    private Date toDate;
 
     public void setId(long id){
         this.id = id;
@@ -42,31 +42,30 @@ public class Availability{
         return this.id;
     }
     
-   
-    public void setPerson_id(long person_id){
-        this.person_id = person_id;
+    public void setPersonId(long personId){
+        this.personId = personId;
     }
-    public long getPerson_id(){
-        return this.person_id;
+    public long getPersonId(){
+        return this.personId;
     }
 
-    public void setFrom_date(Date from_date){
-        this.from_date = from_date;
+    public void setFromDate(Date fromDate){
+        this.fromDate = fromDate;
     }
-    public Date getFrom_date(){
-        return this.from_date;
+    public Date getFromDate(){
+        return this.fromDate;
     }
-    public void setTo_date(Date to_date){
-        this.to_date = to_date;
+    public void setToDate(Date toDate){
+        this.toDate = toDate;
     }
-    public Date getTo_date(){
-        return this.to_date;
+    public Date getToDate(){
+        return this.toDate;
     }
 
     public Availability(){
 
     }
-    public Availability(long id, Date from_date, Date to_date){
+    public Availability(long id, long personId, Date fromDate, Date toDate){
         
     }
 }

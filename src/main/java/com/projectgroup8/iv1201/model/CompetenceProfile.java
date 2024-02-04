@@ -18,15 +18,15 @@ public class CompetenceProfile{
     private long id;
     
     @Column(name="person_id")
-    private long person_id;
+    private long personId;
 
     @Column(name="competence_id")
-    private long competence_id;
+    private long competenceId;
 
     //numeric(4,2)
 
     @Column(name="years_of_experience")
-    private BigDecimal years_of_experience;
+    private BigDecimal yearsOfExperience;
     
     public void setId(long id){
         this.id = id;
@@ -34,22 +34,22 @@ public class CompetenceProfile{
     public long getId(){
         return this.id;
     }
-    public void setPerson_id(long person_id){
-        this.person_id = person_id;
+    public void setPersonId(long personId){
+        this.personId = personId;
     }
-    public long getPerson_id(){
-        return this.person_id;
+    public long getPersonId(){
+        return this.personId;
     }
-    public void setCompetence_id(long competence_id){
-        this.competence_id = competence_id;
+    public void setCompetenceId(long competenceId){
+        this.competenceId = competenceId;
     }
-    public long getCompetence_id(){
-        return this.competence_id;
+    public long getCompetenceId(){
+        return this.competenceId;
     }
-    public void setYears_of_experience(BigDecimal years_of_experience){
-        this.years_of_experience = years_of_experience;
+    public void setYearsOfExperience(BigDecimal yearsOfExperience){
+        this.yearsOfExperience = yearsOfExperience;
     }
-    public BigDecimal setYears_of_experience(){
-        return this.years_of_experience;
+    public BigDecimal getYearsOfExperience(){
+        return this.yearsOfExperience;
     }
 }

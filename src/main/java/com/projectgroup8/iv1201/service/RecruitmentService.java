@@ -1,6 +1,7 @@
 package com.projectgroup8.iv1201.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.projectgroup8.iv1201.repository.*;
 import com.projectgroup8.iv1201.model.*;
@@ -27,7 +28,7 @@ public class RecruitmentService {
      * @param username The username
      * @return A <code>Person</code> with the username. <ode>null</code> if no person was found
      */
-    Person getPerson(String username){
+    public Person getPerson(String username){
         return personRepository.findByUsername(username);
     }
 }

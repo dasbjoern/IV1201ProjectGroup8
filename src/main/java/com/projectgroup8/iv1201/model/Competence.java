@@ -41,6 +41,6 @@ public class Competence{
         return this.name;
     }
 
-   
+    
 
 }

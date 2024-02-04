@@ -15,24 +15,24 @@ public class Competence{
 
     public Competence(){
     }
-    public Competence(Long id, String name){
-        this.id = id;
+    public Competence(long competenceId, String name){
+        this.competenceId = competenceId;
         this.name = name;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="competence_id")
-    private long id;
+    private long competenceId;
     
     @Column(name="name")
     private String name;
     
-    public void setId(long id){
-        this.id = id;
+    public void setCompetenceId(long competenceId){
+        this.competenceId = competenceId;
     }
-    public long getId(){
-        return this.id;
+    public long getCompetenceId(){
+        return this.competenceId;
     }
     public void setName(String name){
         this.name = name;

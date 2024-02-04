@@ -15,7 +15,7 @@ public class CompetenceProfile{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="competence_profile_id")
-    private long id;
+    private long competenceProfileId;
     
     @Column(name="person_id")
     private long personId;
@@ -28,11 +28,14 @@ public class CompetenceProfile{
     @Column(name="years_of_experience")
     private BigDecimal yearsOfExperience;
     
-    public void setId(long id){
-        this.id = id;
+    public CompetenceProfile(){
+        
     }
-    public long getId(){
-        return this.id;
+    public void setCompetenceProfileId(long competenceProfileId){
+        this.competenceProfileId = competenceProfileId;
+    }
+    public long getCompetenceProfileId(){
+        return this.competenceProfileId;
     }
     public void setPersonId(long personId){
         this.personId = personId;

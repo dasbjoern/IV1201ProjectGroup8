@@ -25,9 +25,8 @@ import com.projectgroup8.iv1201.model.Person;
 
 @Controller
 public class RecruitmentController {
-
-	// @Autowired
-	// private DataSource dataSource;
+	
+	@Autowired
 	private RecruitmentService recruitmentService;
 
 

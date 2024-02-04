@@ -20,7 +20,7 @@ public class Availability{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="availability_id")
-    private long id; 
+    private long availabilityId; 
     
     // @ManyToOne
     // @JoinColumn(name = "person_id", referencedColumnName = "person_id")
@@ -35,11 +35,11 @@ public class Availability{
     @Column(name="to_date")
     private Date toDate;
 
-    public void setId(long id){
-        this.id = id;
+    public void setAvailabilityId(long availabilityId){
+        this.availabilityId = availabilityId;
     }
-    public long getId(){
-        return this.id;
+    public long getAvailabilityId(){
+        return this.availabilityId;
     }
     
     public void setPersonId(long personId){
@@ -65,7 +65,10 @@ public class Availability{
     public Availability(){
 
     }
-    public Availability(long id, long personId, Date fromDate, Date toDate){
-        
+    public Availability(long availabilityId, long personId, Date fromDate, Date toDate){
+        this.availabilityId = availabilityId;
+        this.personId = personId;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
     }
 }

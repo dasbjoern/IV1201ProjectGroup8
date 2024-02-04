@@ -7,6 +7,6 @@ import com.projectgroup8.iv1201.model.CompetenceProfile;
 
 @Repository
 public interface CompetenceProfileRepository extends JpaRepository<CompetenceProfile, Long>{
-    CompetenceProfile findByCompetenceId(Long competenceId);
-    CompetenceProfile findByPersonId(Long personId);
+    public CompetenceProfile findByCompetenceId(long competenceId);
+    public CompetenceProfile findByPersonId(long personId);
 }

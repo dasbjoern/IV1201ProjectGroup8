@@ -20,8 +20,8 @@ public class RecruitmentService {
     private CompetenceRepository competenceRepository;
     @Autowired
     private PersonRepository personRepository;
-    @Autowired
-    private RoleRepository roleRepository;
+    // @Autowired
+    // private RoleRepository roleRepository;
 
     /**
      * Gets a person by username

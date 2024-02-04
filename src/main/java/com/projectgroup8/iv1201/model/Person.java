@@ -17,7 +17,7 @@ public class Person{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="person_id")
-    private long id;
+    private long personId;
     
     @Column(name="name")
     private String name;
@@ -42,12 +42,14 @@ public class Person{
 
     // @OneToMany(mappedBy = "person")
     // private List<Availability> availability;
-
-    public void setId(long id){
-        this.id = id;
+    public Person(){
+        
     }
-    public long getId(){
-        return this.id;
+    public void setPersonId(long personId){
+        this.personId = personId;
+    }
+    public long getPersonId(){
+        return this.personId;
     }
     public void setName(String name){
         this.name = name;

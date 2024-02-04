@@ -7,8 +7,8 @@ import com.projectgroup8.iv1201.model.Person;
 
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long>{
-    Person findByPersonId(long personId);
-    Person findByUsername(String username);
-    Person findByPnr(String personNumber);
-    Person findByEmail(String email);
+    public Person findByPersonId(long personId);
+    public Person findByUsername(String username);
+    public Person findByPnr(String personNumber);
+    public Person findByEmail(String email);
 }

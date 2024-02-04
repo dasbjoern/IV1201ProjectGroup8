@@ -8,5 +8,5 @@ import com.projectgroup8.iv1201.model.Competence;
 @Repository
 public interface CompetenceRepository extends JpaRepository<Competence, Long> {
     
-    Competence findByName(String name);
+    public Competence findByName(String name);
 }

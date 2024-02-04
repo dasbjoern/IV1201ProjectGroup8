@@ -19,17 +19,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.projectgroup8.iv1201.service.RecruitmentService;
+
 @Controller
 public class RecruitmentController {
 
 	// @Autowired
 	// private DataSource dataSource;
+	private RecruitmentService recruitmentService;
 
 
 //example code.
 @GetMapping("/")
 	public String hello(Model model) {
-		
+		/* 
 		EntityManagerFactory entityFactory = Persistence.createEntityManagerFactory("ProjectPU");
         EntityManager entityM = entityFactory.createEntityManager();
         Query queryName = entityM.createNamedQuery("Competence.findname");
@@ -37,9 +40,10 @@ public class RecruitmentController {
 		queryName.setMaxResults(1);
 		String name = (String)queryName.getSingleResult();
         entityM.close();
-        entityFactory.close();
+        entityFactory.close();*/
+		Person person = recruitmentService.getPerson("JoelleWilkinson");
 		
-			model.addAttribute("test", name);
+		model.addAttribute("test", person.getPassword());
 			
 		return "hello";
 	}

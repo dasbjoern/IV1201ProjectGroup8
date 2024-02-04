@@ -51,6 +51,14 @@
 	<!-- https://mvnrepository.com/artifact/org.eclipse.persistence/org.eclipse.persistence.jpa -->
 
 	</dependencies>
+	
+<distributionManagement>
+   <repository>
+     <id>github</id>
+     <name>GitHub dasbjoern Apache Maven Packages</name>
+     <url>https://maven.pkg.github.com/dasbjoern/IV1201ProjectGroup8</url>
+   </repository>
+</distributionManagement>
 
 	<build>
 	

@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.projectgroup8.iv1201.service.RecruitmentService;
 
+import com.projectgroup8.iv1201.model.Person;
+
 @Controller
 public class RecruitmentController {
 

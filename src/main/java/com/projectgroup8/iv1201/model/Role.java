@@ -9,16 +9,19 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="role_id")
-    private long id;
+    private long roleId;
     
     @Column(name="name")
     private String name;
     
-    public void setId(long id){
-        this.id = id;
+    public Role(){
+        
     }
-    public long getId(){
-        return this.id;
+    public void setRoleId(long roleId){
+        this.roleId = roleId;
+    }
+    public long getRoleId(){
+        return this.roleId;
     }
     public void setName(String name){
         this.name = name;

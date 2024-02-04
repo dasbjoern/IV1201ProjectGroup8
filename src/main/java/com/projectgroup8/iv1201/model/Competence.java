@@ -1,4 +1,4 @@
-package com.projectgroup8.iv1201.integration;
+package com.projectgroup8.iv1201.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,7 +40,4 @@ public class Competence{
     public String getName(){
         return this.name;
     }
-
-    
-
 }

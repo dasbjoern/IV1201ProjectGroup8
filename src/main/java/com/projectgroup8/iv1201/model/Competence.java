@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="competence")
 @NamedQuery(name = "Competence.findname", query = "SELECT name FROM Competence")
-public class Competence{
+public class Competence implements CompetenceDTO{
 
     public Competence(){
     }

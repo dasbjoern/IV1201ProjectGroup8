@@ -31,4 +31,7 @@ public class RecruitmentService {
     public Person getPerson(String username){
         return personRepository.findByUsername(username);
     }
+    public Competence getCompetence(String name){
+        return competenceRepository.findByName(name);
+    }
 }

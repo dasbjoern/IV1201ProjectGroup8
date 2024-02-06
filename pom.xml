@@ -9,11 +9,11 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.projectgroup8</groupId>
-	<artifactId>iv1201</artifactId>
+	<artifactId>iv1201projectgroup8</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>iv1201</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Recruitment website</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -32,9 +32,44 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
+<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-jpa</artifactId>
+    <version>3.2.2</version>
+</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+	<dependency>
+    	<groupId>org.postgresql</groupId>
+    	<artifactId>postgresql</artifactId>
+    	<version>42.7.1</version>
+	</dependency>
+<!-- https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api -->
+
+	<!-- https://mvnrepository.com/artifact/org.eclipse.persistence/org.eclipse.persistence.jpa -->
+<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-core</artifactId>
+    <version>6.4.3.Final</version>
+    <type>pom</type>
+</dependency>
+
 	</dependencies>
+	
+<distributionManagement>
+   <repository>
+     <id>github</id>
+     <name>GitHub dasbjoern Apache Maven Packages</name>
+     <url>https://maven.pkg.github.com/dasbjoern/IV1201ProjectGroup8</url>
+   </repository>
+</distributionManagement>
 
 	<build>
+	
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

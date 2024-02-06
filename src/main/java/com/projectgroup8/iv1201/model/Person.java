@@ -45,6 +45,15 @@ public class Person{
     public Person(){
         
     }
+    public Person(PersonDTO personDTO){
+        this.personId = personDTO.getPersonId();
+        this.name = personDTO.getName();
+        this.surname = personDTO.getSurname();
+        this.pnr = personDTO.getPnr();
+        this.email = personDTO.getEmail();
+        this.roleId = personDTO.getRoleId();
+        this.username = personDTO.getUsername();
+    }
     public void setPersonId(long personId){
         this.personId = personId;
     }
@@ -94,5 +103,12 @@ public class Person{
     }
     public String getUsername(){
         return this.username;
+    }
+    public long login(String password){
+        if(this.password.equals(password)){
+            return this.personId;
+        }
+        else
+           return (long)-1;
     }
 }

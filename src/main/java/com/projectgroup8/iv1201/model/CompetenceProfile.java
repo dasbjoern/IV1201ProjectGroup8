@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="competence_profile")
-public class CompetenceProfile{
+public class CompetenceProfile implements CompetenceProfileDTO{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="competence_profile_id")
@@ -19,7 +19,7 @@ public class CompetenceProfile{
     
     @Column(name="person_id")
     private long personId;
-
+    
     @Column(name="competence_id")
     private long competenceId;
 

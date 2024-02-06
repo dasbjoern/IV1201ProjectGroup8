@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.projectgroup8.iv1201.service.RecruitmentService;
 import com.projectgroup8.iv1201.model.CompetenceDTO;
 import com.projectgroup8.iv1201.model.Person;
+import com.projectgroup8.iv1201.model.PersonDTO;
 
 @Controller
 @SessionAttributes({"isLoggedIn", "personId"})
@@ -60,9 +61,11 @@ public class LoginController {
         }
         if(loginParam.get("username") != null){
             if(loginParam.get("password") != null){
-                Person person = recruitmentService.getPerson((String)loginParam.get("username"));
-                if(person.login((String)loginParam.get("password"))){
-
+                
+                long id = recruitmentService.login((String)loginParam.get("username"), (String)loginParam.get("password"));
+                if(id != -1){
+                    PersonDTO person;
+                    if((person = recruitmentService.getPerson(id)) != null);
                     model.addAttribute("isLoggedIn", true);
                     model.addAttribute("personId", person.getPersonId());
 

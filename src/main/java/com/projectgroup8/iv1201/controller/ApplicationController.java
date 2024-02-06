@@ -1,6 +1,7 @@
 package com.projectgroup8.iv1201.controller;
 
 import java.sql.Statement;
+import java.util.List;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.projectgroup8.iv1201.service.RecruitmentService;
 import com.projectgroup8.iv1201.model.CompetenceDTO;
+import com.projectgroup8.iv1201.model.ApplicationDTO;
 import com.projectgroup8.iv1201.model.Person;
 
 @Controller
@@ -38,21 +40,16 @@ public class ApplicationController {
 //example code.
 @GetMapping("/applications")
 	public String hello(Model model) {
-		/* 
-		EntityManagerFactory entityFactory = Persistence.createEntityManagerFactory("ProjectPU");
-        EntityManager entityM = entityFactory.createEntityManager();
-        Query queryName = entityM.createNamedQuery("Competence.findname");
-        queryName.setFirstResult(0);
-		queryName.setMaxResults(1);
-		String name = (String)queryName.getSingleResult();
-        entityM.close();
-        entityFactory.close();*/
+		
+        List<ApplicationDTO> allApplications = recruitmentService.getAllApplications();
+        ApplicationDTO testDto = allApplications.get(0);
+        model.addAttribute("statusTest", testDto.getStatus());
 		// Person person = recruitmentService.getPerson("JoelleWilkinson");
 		// CompetenceDTO competence = recruitmentService.getCompetence("ticket sales");
 		// model.addAttribute("comp", competence.getName());
 		// model.addAttribute("test", person.getPassword());
 			
-		return "hello";
+		return "applications";
 	}
 
 

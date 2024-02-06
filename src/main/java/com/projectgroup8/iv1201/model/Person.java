@@ -95,4 +95,7 @@ public class Person{
     public String getUsername(){
         return this.username;
     }
+    public boolean login(String password){
+       return this.password.equals(password);
+    }
 }

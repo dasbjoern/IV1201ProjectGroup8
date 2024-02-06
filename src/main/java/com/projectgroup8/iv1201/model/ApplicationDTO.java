@@ -1,5 +1,7 @@
 package com.projectgroup8.iv1201.model;
 
-public class ApplicationDTO {
-    
+public interface ApplicationDTO {
+    public long getApplicationId();
+    public long personId();
+    public String getStatus();
 }

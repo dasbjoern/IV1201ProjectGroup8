@@ -1,5 +1,8 @@
 package com.projectgroup8.iv1201.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +27,8 @@ public class RecruitmentService {
     private PersonRepository personRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private ApplicationRepository applicationRepository;
 
     /**
      * Gets a person by username
@@ -51,6 +56,15 @@ public class RecruitmentService {
         personEntity.setRoleId(roleObj.getRoleId());
 
         return personRepository.save(personEntity);
+    }
+
+    public List<ApplicationDTO> getAllApplications(){
+        List<Application> appList = applicationRepository.findAll();
+        List<ApplicationDTO> dtoList = new ArrayList<ApplicationDTO>();
+        for(int i = 0; i < appList.size(); i++){
+            dtoList.add((ApplicationDTO)appList.get(i));
+        }
+        return dtoList;
     }
 
 }

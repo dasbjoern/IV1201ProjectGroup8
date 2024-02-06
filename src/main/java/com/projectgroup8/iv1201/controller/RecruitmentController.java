@@ -34,16 +34,16 @@ import com.projectgroup8.iv1201.model.RegisterForm;
 
 
 @Controller
-@SessionAttributes("personId")
+@SessionAttributes({"isLoggedIn", "personId"})
 public class RecruitmentController {
 	
 	@Autowired
 	private RecruitmentService recruitmentService;
 
-	// @ModelAttribute("personId")
-    // public int isLoggedIn(){
-    //     return 0;
-    //     }
+	@ModelAttribute("isLoggedIn")
+    public boolean isLoggedIn(){
+        return false;
+        }
 		
 
 //example code.
@@ -54,10 +54,6 @@ public class RecruitmentController {
 		CompetenceDTO competence = recruitmentService.getCompetence("ticket sales");
 		model.addAttribute("comp", competence.getName());
 		model.addAttribute("test", person.getPassword());
-
-		if(model.getAttribute("personId") == null){
-			model.addAttribute("personId", 0);
-		}
 			
 		return "hello";
 	}
@@ -80,7 +76,7 @@ public class RecruitmentController {
 
 		Person registeredApplicant = recruitmentService.registerApplicant(registerForm);
 
-		return "login";
+		return "redirect:/";
 	}
 
 

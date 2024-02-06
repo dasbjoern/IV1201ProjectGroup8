@@ -5,6 +5,22 @@
 </head>
 <body>
 <div>
+    <h2><a href='/logout'>Logout</a></h2><br>
+
+    
+    <span th:if="${!isLoggedIn}">
+        <form action='/registerApplicant' method='get'>
+            <button name="register" type="submit" value="regiser"> Create Account</button>
+            </form>
+        <form action='/login' method="post">
+            <label for='username'>Username</label><br>
+            <input type='text' id='username' name='username' value=''><br>
+            <label for='pass'>Password</label><br>
+            <input type='password' id='password' name='password' value=''><br><br>
+            <input type='submit' value='login'>
+        </form>
+    </span>
+
     <h1>Hello</h1>
     <h2><p th:text="${test}">Test</p></h1>
     <h2><p th:text="${comp}">Test</p></h1>

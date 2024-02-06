@@ -35,18 +35,18 @@ import com.projectgroup8.iv1201.model.Person;
 public class LoginController {
     // private boolean isLoggedIn = false;
     
-    @ModelAttribute("isLoggedIn")
-    public boolean isLoggedIn(){
-        return false;
-        }
+    // @ModelAttribute("isLoggedIn")
+    // public boolean isLoggedIn(){
+    //     return false;
+    //     }
 
     @Autowired
     private RecruitmentService recruitmentService;
-
     @GetMapping("/login")
     public String loginGet(Model model){
+
         if((boolean)model.getAttribute("isLoggedIn"))
-            return "hello";
+            return "redirect:/";
         else    
             return "login";
     }
@@ -56,7 +56,7 @@ public class LoginController {
     public String loginPost(Model model, @RequestParam Map<String, String> loginParam){
 
         if((boolean)model.getAttribute("isLoggedIn")){
-            return "hello";
+            return "redirect:/";
         }
         if(loginParam.get("username") != null){
             if(loginParam.get("password") != null){
@@ -65,14 +65,21 @@ public class LoginController {
 
                     model.addAttribute("isLoggedIn", true);
                     model.addAttribute("personId", person.getPersonId());
+
                     // isLoggedIn = true;
-                    return "hello";
+                    return "redirect:/";
                 }else{
-                    return "login";
+                    return "redirect:/";
                 }
             }
         }
-        return "login";
+        return "hello";
+    }
+
+    @GetMapping("/logout")
+    public String logout(Model model){
+        model.addAttribute("isLoggedIn", false);
+        return "redirect:/";
     }
     
 }

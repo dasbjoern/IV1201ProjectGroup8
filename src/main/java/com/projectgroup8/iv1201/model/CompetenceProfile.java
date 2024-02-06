@@ -19,7 +19,7 @@ public class CompetenceProfile{
     
     @Column(name="person_id")
     private long personId;
-
+    
     @Column(name="competence_id")
     private long competenceId;
 

@@ -5,6 +5,7 @@
 </head>
 <body>
 <div>
+    <h2><a href='/'>Back</a></h2><br>
     <!-- Inspired by: https://github.com/KTH-IV1201/bank/blob/master/src/main/resources/web-root/select-acct.html -->
     <section>
         <h1>Register new user</h1>
@@ -15,7 +16,7 @@
             <p><label for="registerPnr">Person number</label>:<input type="text" th:field="*{pnr}" id="registerPnr"/></p>
             <p><label for="registerEmail">Email</label>:<input type="text" th:field="*{email}" id="registerEmail"/></p>
             <p><label for="registerUsername">Username</label>:<input type="text" th:field="*{username}" id="registerUsername"/></p>
-            <p><label for="registerPassword">Password</label>:<input type="text" th:field="*{password}" id="registerPassword"/></p>
+            <p><label for="registerPassword">Password</label>:<input type="password" th:field="*{password}" id="registerPassword"/></p>
             <p><input type="submit"/>
             </p>
         </form>

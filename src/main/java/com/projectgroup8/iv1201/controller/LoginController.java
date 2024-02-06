@@ -61,10 +61,11 @@ public class LoginController {
         }
         if(loginParam.get("username") != null){
             if(loginParam.get("password") != null){
-                // PersonDTO person = recruitmentService.getPerson((String)loginParam.get("username"));
+                
                 long id = recruitmentService.login((String)loginParam.get("username"), (String)loginParam.get("password"));
                 if(id != -1){
-                    PersonDTO person = recruitmentService.getPerson(id);
+                    PersonDTO person;
+                    if((person = recruitmentService.getPerson(id)) != null);
                     model.addAttribute("isLoggedIn", true);
                     model.addAttribute("personId", person.getPersonId());
 

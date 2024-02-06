@@ -19,7 +19,7 @@ public class Application implements ApplicationDTO {
 
     public Application(long appId, long personId, String status){
         this.applicationId = appId;
-        this.personId = personId;
+        // this.personId = personId;
         this.status = status;
     }
     
@@ -38,7 +38,7 @@ public class Application implements ApplicationDTO {
         return this.applicationId;
     }
 
-    public long personId(){
+    public long getPersonId(){
         return this.personId;
     }
 
@@ -53,5 +53,7 @@ public class Application implements ApplicationDTO {
         }
         this.status = newStatus;
     }
+
+
 
 }

@@ -50,7 +50,9 @@ public class RecruitmentService {
     }
     public long login(String username, String password){
         Person person = personRepository.findByUsername(username);
-        return person.login(password);
+        if(person != null)
+            return person.login(password);
+        return -1;
     }
     public Person registerApplicant(RegisterForm registerForm){
         Person personEntity = new Person();

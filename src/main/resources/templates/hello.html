@@ -9,16 +9,19 @@
 
     
     <span th:if="${!isLoggedIn}">
-        <form action='/registerApplicant' method='get'>
-            <button name="register" type="submit" value="regiser"> Create Account</button>
-            </form>
+        <p th:text="${loginErrorMessage}"></p>
         <form action='/login' method="post">
             <label for='username'>Username</label><br>
             <input type='text' id='username' name='username' value=''><br>
             <label for='pass'>Password</label><br>
             <input type='password' id='password' name='password' value=''><br><br>
-            <input type='submit' value='login'>
+            <input type='submit' value='login'> 
         </form>
+        <br>
+        <form action='/registerApplicant' method='get'>
+            <button name="register" type="submit" value="regiser"> Create Account</button>
+            </form>
+        
     </span>
 
     <h1>Hello</h1>

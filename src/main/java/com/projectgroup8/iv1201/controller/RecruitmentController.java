@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.projectgroup8.iv1201.service.RecruitmentService;
 import com.projectgroup8.iv1201.model.CompetenceDTO;
 import com.projectgroup8.iv1201.model.Person;
+import com.projectgroup8.iv1201.model.PersonDTO;
 import com.projectgroup8.iv1201.model.RegisterForm;
 
 
@@ -50,10 +51,10 @@ public class RecruitmentController {
 @GetMapping("/")
 	public String hello(Model model) {
 
-		Person person = recruitmentService.getPerson("JoelleWilkinson");
+		// PersonDTO person = recruitmentService.getPerson((long)model.getAttribute("personId"));
 		CompetenceDTO competence = recruitmentService.getCompetence("ticket sales");
 		model.addAttribute("comp", competence.getName());
-		model.addAttribute("test", person.getPassword());
+		// model.addAttribute("test", person.getPassword());
 			
 		return "hello";
 	}

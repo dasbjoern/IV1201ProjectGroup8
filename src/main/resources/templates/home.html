@@ -24,10 +24,10 @@
         
     </span>
 
-    <h1>Hello</h1>
-    <h2><p th:text="${test}">Test</p></h1>
-    <h2><p th:text="${comp}">Test</p></h1>
-    <h2><p th:text="${personId}">Test</p></h1>
+    <span th:if="${isLoggedIn}">
+        <h2><p th:text="${name}">Test</p></h1>
+
+    </span>
 </div>
 </body>
 </html>

@@ -50,7 +50,7 @@ public class LoginController {
         if((boolean)model.getAttribute("isLoggedIn"))
             return "redirect:/";
         else    
-            return "login";
+            return "home";
     }
     
 
@@ -58,22 +58,24 @@ public class LoginController {
     public String loginPost(Model model, @RequestParam Map<String, String> loginParam){
 
         if((boolean)model.getAttribute("isLoggedIn")){
-            return "hello";
+            return "home";
         }
         if((loginParam.get("username") != null)){
             if(loginParam.get("password") != null){
                 
                 long id = recruitmentService.login((String)loginParam.get("username"), (String)loginParam.get("password"));
                 PersonDTO person;
+
                 if(id != -1 && ((person = recruitmentService.getPerson(id)) != null)){
                     model.addAttribute("isLoggedIn", true);
-                    model.addAttribute("personId", person.getPersonId());  
+                    model.addAttribute("personId", person.getPersonId());
+                    model.addAttribute("name", person.getName());  
                 }
                 else
                     model.addAttribute("loginErrorMessage", ErrorHandler.loginFailed);
             }         
         }
-        return "hello";
+        return "home";
     }
 
     @GetMapping("/logout")

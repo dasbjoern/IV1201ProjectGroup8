@@ -2,6 +2,8 @@ package com.projectgroup8.iv1201.model;
 
 import java.util.List;
 
+import org.antlr.v4.runtime.misc.NotNull;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

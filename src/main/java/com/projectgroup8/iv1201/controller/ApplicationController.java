@@ -24,8 +24,8 @@ public class ApplicationController {
 	public String hello(Model model) {
 		
         List<ApplicationDTO> allApplications = recruitmentService.getAllApplications();
-        ApplicationDTO testDto = allApplications.get(0);
-        model.addAttribute("statusTest", testDto.getStatus());
+        //ApplicationDTO testDto = allApplications.get(0);
+        //model.addAttribute("statusTest", testDto.getStatus());
 		// Person person = recruitmentService.getPerson("JoelleWilkinson");
 		// CompetenceDTO competence = recruitmentService.getCompetence("ticket sales");
 		// model.addAttribute("comp", competence.getName());

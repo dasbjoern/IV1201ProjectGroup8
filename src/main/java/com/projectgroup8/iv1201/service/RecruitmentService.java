@@ -92,8 +92,17 @@ public class RecruitmentService {
     public List<ApplicationDTO> getAllApplications(){
         List<Application> appList = applicationRepository.findAll();
         List<ApplicationDTO> dtoList = new ArrayList<ApplicationDTO>();
+        List<Long> personIdList = new ArrayList<>();
         for(int i = 0; i < appList.size(); i++){
             dtoList.add((ApplicationDTO)appList.get(i));
+            personIdList.add(appList.get(i).getPersonId());
+
+        }
+        List<Person> personList = personRepository.findAllById(personIdList);
+        for(Person person : personList){
+            System.out.println("hej");
+            System.out.println(personList.size());
+            System.out.println(person.getName());
         }
         return dtoList;
     }

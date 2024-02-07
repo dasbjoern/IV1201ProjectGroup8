@@ -7,6 +7,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * An entity for the role table in the database
+ */
 @Entity
 @Table(name="role")
 public class Role implements RoleDTO{

@@ -1,18 +1,15 @@
 package com.projectgroup8.iv1201.model;
 
-import java.util.List;
-
-import org.antlr.v4.runtime.misc.NotNull;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+/**
+ * An entity for the person table in the database
+ */
 @Entity
 @Table(name="person")
 public class Person implements PersonDTO{

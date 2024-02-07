@@ -47,7 +47,7 @@ public class RecruitmentController {
 	 * Handles get requests for the register applicant page
 	 */
 	@GetMapping("/registerApplicant")
-	public String register(Model model){
+	public String getRegisterForm(Model model){
 		model.addAttribute("registerForm", new RegisterForm());
 		return "registerApplicant";
 	}

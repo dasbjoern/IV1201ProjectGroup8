@@ -2,17 +2,15 @@ package com.projectgroup8.iv1201.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.projectgroup8.iv1201.repository.*;
 import com.projectgroup8.iv1201.model.*;
 
 /**
  * The service that accesses the repositories of the Recruitment Database
+ * Inspired by: https://github.com/KTH-IV1201/bank/blob/master/src/main/java/se/kth/iv1201/appserv/bank/application/BankService.java
  */
 @Service
 @Transactional

@@ -7,6 +7,7 @@ import com.projectgroup8.iv1201.model.Person;
 
 /**
  * A repository for the person table in the database
+ * Inspired by: https://github.com/KTH-IV1201/bank/blob/master/src/main/java/se/kth/iv1201/appserv/bank/repository/AccountRepository.java
  */
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long>{

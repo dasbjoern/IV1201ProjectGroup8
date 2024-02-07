@@ -5,10 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.NamedQuery;
 import java.math.BigDecimal;
 import jakarta.persistence.Table;
 
+/**
+ * An entity for the competence profile table in the database
+ */
 @Entity
 @Table(name="competence_profile")
 public class CompetenceProfile implements CompetenceProfileDTO{

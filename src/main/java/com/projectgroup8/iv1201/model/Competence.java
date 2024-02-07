@@ -8,6 +8,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
+/**
+ * An entity for the competence table in the database
+ */
 @Entity
 @Table(name="competence")
 @NamedQuery(name = "Competence.findname", query = "SELECT name FROM Competence")

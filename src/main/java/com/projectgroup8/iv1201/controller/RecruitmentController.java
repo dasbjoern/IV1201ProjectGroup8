@@ -10,6 +10,8 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
+import jakarta.validation.Valid;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.projectgroup8.iv1201.service.RecruitmentService;
@@ -50,13 +53,7 @@ public class RecruitmentController {
 //example code.
 @GetMapping("/")
 	public String hello(Model model) {
-
-		// PersonDTO person = recruitmentService.getPerson((long)model.getAttribute("personId"));
-		CompetenceDTO competence = recruitmentService.getCompetence("ticket sales");
-		model.addAttribute("comp", competence.getName());
-		// model.addAttribute("test", person.getPassword());
-			
-		return "hello";
+		return "home";
 	}
 
 	/**
@@ -73,11 +70,17 @@ public class RecruitmentController {
 	 * @param registerForm	The register form
 	 */
 	@PostMapping("/registerApplicant")
-	public String registerApplicant(RegisterForm registerForm, Model model){
+	public String registerApplicant(@Valid RegisterForm registerForm, BindingResult bindingResult, Model model){
+		if(bindingResult.hasErrors()){
+			return "registerApplicant";
+		}
+		
+		if(recruitmentService.registerApplicant(registerForm))
+			model.addAttribute("loginErrorMessage", "Account Created.");
+		else
+			model.addAttribute("loginErrorMessage", "Could not create account.");
 
-		Person registeredApplicant = recruitmentService.registerApplicant(registerForm);
-
-		return "redirect:/";
+		return "home";
 	}
 
 

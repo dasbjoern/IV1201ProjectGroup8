@@ -37,22 +37,37 @@ public class RecruitmentService {
      * @return A <code>Person</code> with the username. <ode>null</code> if no person was found
      */
     public PersonDTO getPerson(long id){
-        return personRepository.findByPersonId(id);
+        return new Person(personRepository.findByPersonId(id));
     }
     
-    public Competence getCompetence(String name){
+    /**
+     * Gets a competence row from the name
+     * @param name The competence name
+     * @return A DTO of the competence
+     */
+    public CompetenceDTO getCompetence(String name){
         return competenceRepository.findByName(name);
     }
-    public Person getPersonFromDTO(PersonDTO personDTO){
-        Person person = new Person(personDTO);
-        // person.setPassword(password);
-        return person;
-    }
+
+    /**
+     * Logs in a user
+     * @param username the username
+     * @param password the password
+     * @return The person id if the username and password is correct, otherwise -1.
+     */
     public long login(String username, String password){
         Person person = personRepository.findByUsername(username);
-        return person.login(password);
+        if(person != null)
+            return person.login(password);
+        return -1;
     }
-    public Person registerApplicant(RegisterForm registerForm){
+
+    /**
+     * Registers a new applicant user
+     * @param registerForm The form containing the information of the applicant
+     * @return <code>true</code> if the user was successfully registered, otherwise <code>false</code>
+     */
+    public boolean registerApplicant(RegisterForm registerForm) throws IllegalArgumentException {
         Person personEntity = new Person();
 
         personEntity.setName(registerForm.getName());
@@ -64,10 +79,18 @@ public class RecruitmentService {
         
         Role roleObj = roleRepository.findByName("applicant");
         personEntity.setRoleId(roleObj.getRoleId());
-
-        return personRepository.save(personEntity);
+        
+        Person registeredPerson = personRepository.save(personEntity);
+        
+        return (registeredPerson.getPersonId() > 0);
+       
     }
 
+    /**
+     * Fetches all rows of the application table in the database. The Application
+     * objects which are fetched are then casted to DTOs.
+     * @return An ArrayList of ApplicationDTO objects, representing all rows of the application table
+     */
     public List<ApplicationDTO> getAllApplications(){
         List<Application> appList = applicationRepository.findAll();
         List<ApplicationDTO> dtoList = new ArrayList<ApplicationDTO>();

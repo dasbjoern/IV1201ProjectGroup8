@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="availability")
-public class Availability{
+public class Availability implements AvailabilityDTO{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="availability_id")

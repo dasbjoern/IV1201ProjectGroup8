@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 
 /**
  * A form for when a new person is registered
+ * Inspired by: https://github.com/KTH-IV1201/bank/blob/master/src/main/java/se/kth/iv1201/appserv/bank/presentation/acct/CreateAcctForm.java
  */
 public class RegisterForm {
     @NotBlank(message = "Name must be specified")

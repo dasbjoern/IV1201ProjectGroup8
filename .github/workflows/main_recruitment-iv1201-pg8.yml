@@ -50,4 +50,4 @@ jobs:
           app-name: 'recruitment-iv1201-pg8'
           slot-name: 'production'
           package: '*.jar'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_4bbd6739abc546c18a88761c92ead696 }}
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_3D363D4B22254D9DAAA4F99EDA618532 }}

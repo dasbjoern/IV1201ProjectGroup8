@@ -6,7 +6,7 @@ name: Build and deploy JAR app to Azure Web App - recruitment-iv1201-pg8
 on:
   push:
     branches:
-      - main
+      - deploy
   workflow_dispatch:
 
 jobs:
@@ -36,6 +36,10 @@ jobs:
     environment:
       name: 'production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      DATABASE_USER: ${{ secrets.DATABASE_USER }}
+      DATABASE_PASS: ${{ secrets.DATABASE_PASS }}
       
     steps:
       - name: Download artifact from build job

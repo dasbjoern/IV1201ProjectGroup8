@@ -3,15 +3,22 @@ package com.projectgroup8.iv1201;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.*;
 
+import com.projectgroup8.iv1201.controller.ErrorHandler.myException;
+
+import java.sql.SQLException;
+
 import javax.sql.DataSource;
+import javax.xml.crypto.Data;
 
 import org.springframework.boot.jdbc.DataSourceBuilder;
 
@@ -20,6 +27,17 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 @EnableTransactionManagement
 public class ConfigureApp {
     
+
+//  @Bean
+//   public DataSource getDataSource() throws Exception{
+    
+//     DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
+//     dataSourceBuilder.url("${DATABASE_URL}");
+//     dataSourceBuilder.username("${DATABASE_USER}");
+//     dataSourceBuilder.password("${DATABASE_PASS}");
+//     return dataSourceBuilder.build();
+    
+//   }
 //     @Bean
 //     public ServletContextTemplateResolver templateResolver() {
 //     ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();

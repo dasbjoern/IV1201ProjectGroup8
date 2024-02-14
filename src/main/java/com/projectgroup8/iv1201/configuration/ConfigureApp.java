@@ -7,6 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.thymeleaf.spring6.SpringTemplateEngine;
@@ -24,6 +25,7 @@ import javax.xml.crypto.Data;
 @EnableWebMvc
 @Configuration
 @EnableTransactionManagement
+@PropertySource(value = "classpath:config.properties", ignoreResourceNotFound = true)
 public class ConfigureApp {
     
 

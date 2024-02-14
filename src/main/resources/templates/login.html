@@ -5,7 +5,7 @@
 </head>
 <body>
 <div>
-    
+    <p th:text="${loginErrorMessage}"></p>
     <form action='/login' method="post">
         <label for='username'>Username</label><br>
         <input type='text' id='username' name='username' value=''><br>
@@ -13,8 +13,8 @@
         <input type='password' id='password' name='password' value=''><br><br>
         <input type='submit' value='login'>
     </form>
-    <h1><p th:text="${username}">Test</p></h1>
-    <h1><p th:text="${password}">Test</p></h1>
+    <h1><p th:text="${username}"></p></h1>
+    <h1><p th:text="${password}"></p></h1>
 </div>
 </body>
 </html>

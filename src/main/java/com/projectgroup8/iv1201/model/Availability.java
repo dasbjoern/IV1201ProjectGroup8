@@ -8,23 +8,18 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
+/**
+ * An entity for the availability table in the database
+ */
 @Entity
 @Table(name="availability")
-public class Availability{
+public class Availability implements AvailabilityDTO{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="availability_id")
     private long availabilityId; 
-    
-    // @ManyToOne
-    // @JoinColumn(name = "person_id", referencedColumnName = "person_id")
-    // private Person person;
     
     @Column(name="person_id")
     private long personId;

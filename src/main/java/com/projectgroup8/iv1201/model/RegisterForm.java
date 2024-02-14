@@ -1,15 +1,24 @@
 package com.projectgroup8.iv1201.model;
 
+
+import jakarta.validation.constraints.NotBlank;
+
 /**
  * A form for when a new person is registered
+ * Inspired by: https://github.com/KTH-IV1201/bank/blob/master/src/main/java/se/kth/iv1201/appserv/bank/presentation/acct/CreateAcctForm.java
  */
 public class RegisterForm {
-    
+    @NotBlank(message = "Name must be specified")
     private String name;
+    @NotBlank(message = "Surname must be specified")
     private String surname;
+    @NotBlank(message = "Person number must be specified")
     private String pnr;
+    @NotBlank(message = "E-mail must be specified")
     private String email;
+    @NotBlank(message = "Password must be specified")
     private String password;
+    @NotBlank(message = "Username must be specified")
     private String username;
 
     public void setName(String name){

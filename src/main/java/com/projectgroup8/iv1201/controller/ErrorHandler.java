@@ -54,7 +54,7 @@ public class ErrorHandler {
     }
     @ExceptionHandler(Exception.class)
     public String myException(Model model, Exception e){
-        model.addAttribute("errorMessage", "Illegal arguments during registration.");
+        model.addAttribute("errorMessage", "Exception");
         
         //TEMP should not be in view.
         model.addAttribute("internalError", e);

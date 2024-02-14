@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -11,6 +10,7 @@
 	<groupId>com.projectgroup8</groupId>
 	<artifactId>iv1201projectgroup8</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>iv1201</name>
 	<description>Recruitment website</description>
 	<properties>
@@ -54,12 +54,7 @@
 	<!-- https://mvnrepository.com/artifact/org.eclipse.persistence/org.eclipse.persistence.jpa -->
 <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
 
-<dependency>
-    <groupId>org.hibernate</groupId>
-    <artifactId>hibernate-core</artifactId>
-    <version>6.4.3.Final</version>
-    <type>pom</type>
-</dependency>
+
 
 <dependency>
    <groupId>org.hibernate.validator</groupId> 
@@ -80,6 +75,36 @@
 	<build>
 	
 		<plugins>
+<plugin> 
+  <groupId>com.microsoft.azure</groupId>  
+  <artifactId>azure-webapp-maven-plugin</artifactId>  
+  <version>2.9.0</version>
+    <configuration>
+        <subscriptionId>de5e4fde-e500-4355-a505-6f8f5634f9ef</subscriptionId>
+        <resourceGroup>recruitment-app-iv1201-pg8</resourceGroup>
+        <appName>recruitment-iv1201-pg8</appName>
+        <pricingTier>B1</pricingTier>
+        <region>westeurope</region>
+        <runtime>
+            <os>Linux</os>
+            <webContainer>Java SE</webContainer>
+            <javaVersion>Java 17</javaVersion>
+        </runtime>
+        <deployment>
+            <resources>
+                <resource>
+                    <type>jar</type>
+                    <directory>${project.basedir}/target</directory>
+                    <includes>
+                        <include>*.jar</include>
+                    </includes>
+                </resource>
+            </resources>
+        </deployment>
+    </configuration>
+</plugin> 
+
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

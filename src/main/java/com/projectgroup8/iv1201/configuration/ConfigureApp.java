@@ -1,4 +1,4 @@
-package com.projectgroup8.iv1201;
+package com.projectgroup8.iv1201.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -20,7 +20,6 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 import javax.xml.crypto.Data;
 
-import org.springframework.boot.jdbc.DataSourceBuilder;
 
 @EnableWebMvc
 @Configuration

@@ -1,7 +1,3 @@
-# IV1201ProjectGroup8
-<<<<<<< HEAD
-test pull request
-=======
 Use development branch.
 
 #For developing on own machine
@@ -32,4 +28,3 @@ java -jar /target/iv1201projectgroup8-0.0.1-SNAPSHOT.jar
 
 #Can run with  
 mvn spring-boot:run
->>>>>>> 8015006aacd074e181291132a665624236088267

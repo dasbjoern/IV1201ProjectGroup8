@@ -38,8 +38,29 @@ public class RecruitmentService {
     public Person getPerson(String username){
         return personRepository.findByUsername(username);
     }
+
     public Competence getCompetence(String name){
         return competenceRepository.findByName(name);
+    }
+
+    public List<CompetenceInfoDTO> getCompetenceInfoList(long personId){
+        List<CompetenceProfile> competenceProfileList = competenceProfileRepository.findAllByPersonId(personId);
+        ArrayList<CompetenceInfoDTO> infoList = new ArrayList<CompetenceInfoDTO>();
+        String competenceType;
+        for(int i = 0; i < competenceProfileList.size(); i++){
+            competenceType = competenceRepository.findById(competenceProfileList.get(i).getCompetenceId()).getName();
+            infoList.add(new CompetenceInfoDTO(competenceProfileList.get(i), competenceType));
+        }
+        return infoList;
+    }
+
+    public ArrayList<AvailabilityDTO> getAvailability(long personId){
+        ArrayList<AvailabilityDTO> availabilityDTOList = new ArrayList<AvailabilityDTO>();
+        List<Availability> availabilityList = availabilityRepository.findAllByPersonId(personId);
+        for(int i = 0; i < availabilityList.size(); i++){
+            availabilityDTOList.add((AvailabilityDTO)availabilityList.get(i));
+        }
+        return availabilityDTOList;
     }
 
     public Person registerApplicant(RegisterForm registerForm){
@@ -58,13 +79,22 @@ public class RecruitmentService {
         return personRepository.save(personEntity);
     }
 
-    public List<ApplicationDTO> getAllApplications(){
+    public List<ApplicationListDTO> getAllApplications(){
         List<Application> appList = applicationRepository.findAll();
-        List<ApplicationDTO> dtoList = new ArrayList<ApplicationDTO>();
+        List<Long> personIdList = new ArrayList<>();
+        List<ApplicationListDTO> dtoList = new ArrayList<ApplicationListDTO>();
         for(int i = 0; i < appList.size(); i++){
-            dtoList.add((ApplicationDTO)appList.get(i));
+            personIdList.add(appList.get(i).getPersonId());
+        }
+        List<Person> personList = personRepository.findAllById(personIdList);
+        for(int i = 0; i < appList.size(); i++){
+            dtoList.add(new ApplicationListDTO(appList.get(i), personList.get(i)));
         }
         return dtoList;
+    }
+
+    public ApplicationDTO getApplication(long personId){
+        return (ApplicationDTO)applicationRepository.findByPersonId(personId);
     }
 
 }

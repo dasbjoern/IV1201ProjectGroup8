@@ -72,25 +72,9 @@ public class RecruitmentService {
         return availabilityDTOList;
     }
 
-    public List<CompetenceInfoDTO> getCompetenceInfoList(long personId){
-        List<CompetenceProfile> competenceProfileList = competenceProfileRepository.findAllByPersonId(personId);
-        ArrayList<CompetenceInfoDTO> infoList = new ArrayList<CompetenceInfoDTO>();
-        String competenceType;
-        for(int i = 0; i < competenceProfileList.size(); i++){
-            competenceType = competenceRepository.findById(competenceProfileList.get(i).getCompetenceId()).getName();
-            infoList.add(new CompetenceInfoDTO(competenceProfileList.get(i), competenceType));
-        }
-        return infoList;
-    }
 
-    public ArrayList<AvailabilityDTO> getAvailability(long personId){
-        ArrayList<AvailabilityDTO> availabilityDTOList = new ArrayList<AvailabilityDTO>();
-        List<Availability> availabilityList = availabilityRepository.findAllByPersonId(personId);
-        for(int i = 0; i < availabilityList.size(); i++){
-            availabilityDTOList.add((AvailabilityDTO)availabilityList.get(i));
-        }
-        return availabilityDTOList;
-    }
+
+ 
 
     /**
      * Logs in a user
@@ -135,18 +119,18 @@ public class RecruitmentService {
     /**********************************************
      * TEMPORARY METHOD
      */
-    private void updatePasswords(){
-        List<Person> personList = personRepository.findAll();
+    // private void updatePasswords(){
+    //     List<Person> personList = personRepository.findAll();
 
-        for(Person person : personList){
-            if(person.getPassword() != null){
-                String salt = generateSalt();
-                person.setSalt(salt);
-                person.setPassword(hashPassword(person.getPassword(), salt));
-                personRepository.save(person);
-            }
-        }
-    }
+    //     for(Person person : personList){
+    //         if(person.getPassword() != null){
+    //             String salt = generateSalt();
+    //             person.setSalt(salt);
+    //             person.setPassword(hashPassword(person.getPassword(), salt));
+    //             personRepository.save(person);
+    //         }
+    //     }
+    // }
 
     /**
      * Generates and returns a salt for a password
@@ -191,7 +175,7 @@ public class RecruitmentService {
      * objects which are fetched are then casted to DTOs.
      * @return An ArrayList of ApplicationDTO objects, representing all rows of the application table
      */
-    public List<ApplicationDTO> getAllApplications(){
+    public List<ApplicationListDTO> getAllApplications(){
         List<Application> appList = applicationRepository.findAll();
         List<Long> personIdList = new ArrayList<>();
         List<ApplicationListDTO> dtoList = new ArrayList<ApplicationListDTO>();

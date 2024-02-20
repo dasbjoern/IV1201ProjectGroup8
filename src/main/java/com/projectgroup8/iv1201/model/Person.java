@@ -38,6 +38,9 @@ public class Person implements PersonDTO{
 
     @Column(name="username")
     private String username;
+    
+    @Column(name="salt")
+    private String salt;
 
     // @OneToMany(mappedBy = "person")
     // private List<Availability> availability;
@@ -90,6 +93,12 @@ public class Person implements PersonDTO{
     }
     public String getPassword(){
         return this.password;
+    }
+    public void setSalt(String salt){
+        this.salt = salt;
+    }
+    public String getSalt(){
+        return this.salt;
     }
     public void setRoleId(long roleId){
         this.roleId = roleId;

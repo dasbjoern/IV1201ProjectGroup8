@@ -2,11 +2,17 @@ package com.projectgroup8.iv1201.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.security.SecureRandom;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.projectgroup8.iv1201.repository.*;
 import com.projectgroup8.iv1201.model.*;
+import java.util.Base64;
 
 /**
  * The service that accesses the repositories of the Recruitment Database
@@ -54,9 +60,10 @@ public class RecruitmentService {
      * @return The person id if the username and password is correct, otherwise -1.
      */
     public long login(String username, String password){
+        
         Person person = personRepository.findByUsername(username);
         if(person != null)
-            return person.login(password);
+            return person.login(hashPassword(password, person.getSalt()));
         return -1;
     }
 
@@ -73,8 +80,10 @@ public class RecruitmentService {
         personEntity.setPnr(registerForm.getPnr());
         personEntity.setEmail(registerForm.getEmail());
         personEntity.setUsername(registerForm.getUsername());
-        personEntity.setPassword(registerForm.getPassword());
-        
+
+        String passwordSalt = generateSalt();
+        personEntity.setSalt(passwordSalt);
+        personEntity.setPassword(hashPassword(registerForm.getPassword(), passwordSalt));
         Role roleObj = roleRepository.findByName("applicant");
         personEntity.setRoleId(roleObj.getRoleId());
         
@@ -82,6 +91,60 @@ public class RecruitmentService {
         
         return (registeredPerson.getPersonId() > 0);
        
+    }
+
+    /**********************************************
+     * TEMPORARY METHOD
+     */
+    private void updatePasswords(){
+        List<Person> personList = personRepository.findAll();
+
+        for(Person person : personList){
+            if(person.getPassword() != null){
+                String salt = generateSalt();
+                person.setSalt(salt);
+                person.setPassword(hashPassword(person.getPassword(), salt));
+                personRepository.save(person);
+            }
+        }
+    }
+
+    /**
+     * Generates and returns a salt for a password
+     * @return The salt
+     */
+    private String generateSalt(){
+        SecureRandom secureRandom = new SecureRandom();
+        byte[] salt = new byte[16];
+        secureRandom.nextBytes(salt);
+        return Base64.getEncoder().encodeToString(salt);
+    }
+
+    /**
+     * Returns a SHA512 hashed password.
+     * The implementation follows this guilde: https://www.baeldung.com/java-password-hashing
+     * @param password The password to be hashed
+     * @param salt The salt
+     * @return The hashed password
+     */
+    private String hashPassword(String password, String salt){
+        
+        try{
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
+            messageDigest.update(salt.getBytes());
+
+            byte[] hashedPassword = messageDigest.digest(password.getBytes());
+    
+            return Base64.getEncoder().encodeToString(hashedPassword);
+        }
+        /**
+         * TODO: HANDLE THIS IN SOME WAY
+         */
+        catch(NoSuchAlgorithmException e){
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     /**

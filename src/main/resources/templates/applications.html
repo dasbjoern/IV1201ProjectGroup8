@@ -6,7 +6,13 @@
 <body>
 <div>
     <h1>Applications</h1>
-    <h2><p th:text="${statusTest}">Test</p></h1>
+    <!-- <h2><p th:text="${statusTest}">Test</p></h1> -->
+    <!-- <h2><p th:text="${surnameTest}">Test</p></h1> -->
+    <span th:each="currentApp: ${applicationList}">
+        <p th:text="${currentApp.getName() + ' ' + currentApp.getSurname() + ' | Status: ' + currentApp.getStatus()}"></p>
+        <form action='/applications' method='post'>
+            <button name="applicationToEdit" type="submit" th:value="${currentApp.getPersonId()}">Edit</button>
+            </form>
 </div>
 </body>
 </html>

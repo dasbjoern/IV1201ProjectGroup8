@@ -43,14 +43,53 @@ public class RecruitmentService {
     public PersonDTO getPerson(long id){
         return new Person(personRepository.findByPersonId(id));
     }
-    
     /**
      * Gets a competence row from the name
      * @param name The competence name
      * @return A DTO of the competence
      */
-    public CompetenceDTO getCompetence(String name){
+    public Competence getCompetence(String name){
         return competenceRepository.findByName(name);
+    }
+
+    public List<CompetenceInfoDTO> getCompetenceInfoList(long personId){
+        List<CompetenceProfile> competenceProfileList = competenceProfileRepository.findAllByPersonId(personId);
+        ArrayList<CompetenceInfoDTO> infoList = new ArrayList<CompetenceInfoDTO>();
+        String competenceType;
+        for(int i = 0; i < competenceProfileList.size(); i++){
+            competenceType = competenceRepository.findById(competenceProfileList.get(i).getCompetenceId()).getName();
+            infoList.add(new CompetenceInfoDTO(competenceProfileList.get(i), competenceType));
+        }
+        return infoList;
+    }
+
+    public ArrayList<AvailabilityDTO> getAvailability(long personId){
+        ArrayList<AvailabilityDTO> availabilityDTOList = new ArrayList<AvailabilityDTO>();
+        List<Availability> availabilityList = availabilityRepository.findAllByPersonId(personId);
+        for(int i = 0; i < availabilityList.size(); i++){
+            availabilityDTOList.add((AvailabilityDTO)availabilityList.get(i));
+        }
+        return availabilityDTOList;
+    }
+
+    public List<CompetenceInfoDTO> getCompetenceInfoList(long personId){
+        List<CompetenceProfile> competenceProfileList = competenceProfileRepository.findAllByPersonId(personId);
+        ArrayList<CompetenceInfoDTO> infoList = new ArrayList<CompetenceInfoDTO>();
+        String competenceType;
+        for(int i = 0; i < competenceProfileList.size(); i++){
+            competenceType = competenceRepository.findById(competenceProfileList.get(i).getCompetenceId()).getName();
+            infoList.add(new CompetenceInfoDTO(competenceProfileList.get(i), competenceType));
+        }
+        return infoList;
+    }
+
+    public ArrayList<AvailabilityDTO> getAvailability(long personId){
+        ArrayList<AvailabilityDTO> availabilityDTOList = new ArrayList<AvailabilityDTO>();
+        List<Availability> availabilityList = availabilityRepository.findAllByPersonId(personId);
+        for(int i = 0; i < availabilityList.size(); i++){
+            availabilityDTOList.add((AvailabilityDTO)availabilityList.get(i));
+        }
+        return availabilityDTOList;
     }
 
     /**
@@ -154,11 +193,20 @@ public class RecruitmentService {
      */
     public List<ApplicationDTO> getAllApplications(){
         List<Application> appList = applicationRepository.findAll();
-        List<ApplicationDTO> dtoList = new ArrayList<ApplicationDTO>();
+        List<Long> personIdList = new ArrayList<>();
+        List<ApplicationListDTO> dtoList = new ArrayList<ApplicationListDTO>();
         for(int i = 0; i < appList.size(); i++){
-            dtoList.add((ApplicationDTO)appList.get(i));
+            personIdList.add(appList.get(i).getPersonId());
+        }
+        List<Person> personList = personRepository.findAllById(personIdList);
+        for(int i = 0; i < appList.size(); i++){
+            dtoList.add(new ApplicationListDTO(appList.get(i), personList.get(i)));
         }
         return dtoList;
+    }
+
+    public ApplicationDTO getApplication(long personId){
+        return (ApplicationDTO)applicationRepository.findByPersonId(personId);
     }
 
 }

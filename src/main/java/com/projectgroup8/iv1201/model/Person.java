@@ -30,14 +30,14 @@ public class Person implements PersonDTO{
 
     @Column(name="email")
     private String email;
-
+    
     @Column(name="password")
     private String password;
 
     @Column(name="role_id")
     private long roleId;
 
-    @Size(min = 5, max = 255)
+    // @Size(min = 5, max = 255)
     @Column(name="username")
     private String username;
     

@@ -65,11 +65,11 @@ public class ApplicationController {
 	}
 
 @PostMapping("/applications")
-	public String editApplication(@RequestParam(name = "personId", required=false) Long personId, Model model, 
+	public String editApplication(@RequestParam(name = "appPersonId", required=false) Long appPersonId, Model model, 
 									@RequestParam(name = "status", required=false) String status,
 									@RequestParam(name = "version", required=false) Long version){
 
-		if(personId == null){
+		if(appPersonId == null){
 			return "redirect:/";
 		}
 		if(!isLoggedIn(model)){
@@ -77,7 +77,7 @@ public class ApplicationController {
 		}
 		if(status != null){
 			try{
-				recruitmentService.updateApplicationStatus(status, personId, version);
+				recruitmentService.updateApplicationStatus(status, appPersonId, version);
 			}
 			catch(Exception e){
 				/********
@@ -85,17 +85,25 @@ public class ApplicationController {
 				 */
 				e.printStackTrace();
 			}
+
 			
-			return "redirect:/applications";
+			if(recruitmentService.getPerson((long)model.getAttribute("personId")).getRoleId() == 1){
+				List<ApplicationListDTO> allApplications = recruitmentService.getAllApplications();
+				model.addAttribute("applicationList", allApplications);
+			}
+			
+			return "applications";
 		}
         
-		ArrayList<ArrayList<?>> combinedList = recruitmentService.getCompetenceAndAvailability(personId);
+		ArrayList<ArrayList<?>> combinedList = recruitmentService.getCompetenceAndAvailability(appPersonId);
 		ArrayList<CompetenceInfoDTO> competences = (ArrayList<CompetenceInfoDTO>)combinedList.get(0);
 		ArrayList<AvailabilityDTO> availabilityList = (ArrayList<AvailabilityDTO>)combinedList.get(1);
 		model.addAttribute("competences", competences);
 		model.addAttribute("availability", availabilityList);
-		model.addAttribute("personId", personId);
+		model.addAttribute("appPersonId", appPersonId);
 		model.addAttribute("version", version);
+		
+
 		return "editapplication";
 	}
 

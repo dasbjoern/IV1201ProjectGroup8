@@ -71,9 +71,7 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public String passwordSHAException(Model model, Exception e){
         model.addAttribute("errorMessage", "Internal Server Error. Cryptation algorithm is not available.");
-        
-        //TEMP should not be in view.
-        // model.addAttribute("internalError", e);
+ 
 
         return "errorPage";
     }
@@ -81,13 +79,12 @@ public class ErrorHandler {
     @ExceptionHandler(RecruitmentException.class)
     @ResponseStatus(HttpStatus.OK)
     public String recruitException(Model model, RecruitmentException exceptionMessage){
-        model.addAttribute("errorMessage", "recruitment exception");
-        
-        //TEMP should not be in view.
-        // model.addAttribute("internalError", e);
 
+        model.addAttribute("errorMessage", exceptionMessage.getMessage());
+        
         return "errorPage";
     }
+
     
   
 }

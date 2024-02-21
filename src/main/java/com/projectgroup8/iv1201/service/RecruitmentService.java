@@ -217,11 +217,11 @@ public class RecruitmentService {
      * @param oldVersion The old version
      * @throws OutdatedVersionNumberException
      */
-    public void updateApplicationStatus(String newStatus, long personId, long oldVersion) throws OutdatedVersionNumberException{
+    public void updateApplicationStatus(String newStatus, long personId, long oldVersion) throws RecruitmentException{
         Application applicationToUpdate = applicationRepository.findByPersonId(personId);
 
         if(applicationToUpdate.getVersion() != oldVersion){
-            throw new OutdatedVersionNumberException("The version to update is outdated");
+            throw new RecruitmentException("The version to update is outdated");
         }
 
         applicationToUpdate.setStatus(newStatus);

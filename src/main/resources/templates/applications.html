@@ -13,7 +13,7 @@
         <p th:text="${currentApp.getName() + ' ' + currentApp.getSurname() + ' | Status: ' + currentApp.getStatus()}"></p>
         <form action='/applications' method='post'>
             <input type="hidden" name="version" th:value="${currentApp.getVersion()}">
-            <button name="personId" type="submit" th:value="${currentApp.getPersonId()}">Edit</button>
+            <button name="appPersonId" type="submit" th:value="${currentApp.getPersonId()}">Edit</button>
             </form>
 </div>
 </body>

@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 
 /**
  * An entity for the person table in the database
@@ -36,6 +37,7 @@ public class Person implements PersonDTO{
     @Column(name="role_id")
     private long roleId;
 
+    @Size(min = 5, max = 255)
     @Column(name="username")
     private String username;
     

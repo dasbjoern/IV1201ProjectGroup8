@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,19 +17,22 @@ import com.projectgroup8.iv1201.model.PersonDTO;
 public class LoginController {
     // private boolean isLoggedIn = false;
     
-    // @ModelAttribute("isLoggedIn")
-    // public boolean isLoggedIn(){
-    //     return false;
-    //     }
+    @ModelAttribute("isLoggedIn")
+    public boolean isLoggedIn(Model model){
+        if(model.getAttribute("isLoggedIn") == null)
+            return false;
+        else
+            return (boolean)model.getAttribute("isLoggedIn");
+        }
 
     @Autowired
     private RecruitmentService recruitmentService;
     
     @GetMapping("/login")
     public String loginGet(Model model){
-
-        if((boolean)model.getAttribute("isLoggedIn"))
-            return "redirect:/";
+        
+        if(isLoggedIn(model))
+            return "redirect:/applications";
         else    
             return "home";
     }
@@ -37,8 +41,8 @@ public class LoginController {
     @PostMapping(value = "/login")
     public String loginPost(Model model, @RequestParam Map<String, String> loginParam){
 
-        if((boolean)model.getAttribute("isLoggedIn")){
-            return "home";
+        if(isLoggedIn(model)){
+            return "redirect:/applications";
         }
         if((loginParam.get("username") != null)){
             if(loginParam.get("password") != null){
@@ -55,7 +59,7 @@ public class LoginController {
                     model.addAttribute("loginErrorMessage", ErrorHandler.loginFailed);
             }         
         }
-        return "home";
+        return "redirect:/";
     }
 
     @GetMapping("/logout")

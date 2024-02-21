@@ -14,7 +14,6 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.*;
 
-import com.projectgroup8.iv1201.controller.ErrorHandler.myException;
 
 import java.sql.SQLException;
 

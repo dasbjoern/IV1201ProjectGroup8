@@ -24,8 +24,11 @@ public class RecruitmentController {
 	private RecruitmentService recruitmentService;
 
 	@ModelAttribute("isLoggedIn")
-    public boolean isLoggedIn(){
-        return false;
+    public boolean isLoggedIn(Model model){
+        if(model.getAttribute("isLoggedIn") == null)
+            return false;
+        else
+            return (boolean)model.getAttribute("isLoggedIn");
         }
 		
 
@@ -36,7 +39,11 @@ public class RecruitmentController {
 	 */
 	@GetMapping("/")
 	public String home(Model model) {
-		return "home";
+		if(isLoggedIn(model)){
+			return "redirect:/applications";
+		}
+		else
+			return "home";
 	}
 
 	/**
@@ -44,6 +51,9 @@ public class RecruitmentController {
 	 */
 	@GetMapping("/registerApplicant")
 	public String getRegisterForm(Model model){
+		if(isLoggedIn(model)){
+			return "redirect:/";
+		}
 		model.addAttribute("registerForm", new RegisterForm());
 		return "registerApplicant";
 	}
@@ -55,12 +65,18 @@ public class RecruitmentController {
 	 */
 	@PostMapping("/registerApplicant")
 	public String registerApplicant(@Valid RegisterForm registerForm, BindingResult bindingResult, Model model){
+		if(isLoggedIn(model)){
+			return "redirect:/";
+		}
+
 		if(bindingResult.hasErrors()){
 			return "registerApplicant";
 		}
 		
-		if(recruitmentService.registerApplicant(registerForm))
+		if(recruitmentService.registerApplicant(registerForm)){
 			model.addAttribute("loginErrorMessage", "Account Created.");
+			model.addAttribute("isLoggedIn", true);
+		}
 		else
 			model.addAttribute("loginErrorMessage", "Could not create account.");
 

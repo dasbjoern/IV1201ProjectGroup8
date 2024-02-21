@@ -42,6 +42,7 @@ public class LoginController {
             return "redirect:/applications";
         else{    
             model.addAttribute("loginForm", new LoginForm());
+            
             return "redirect:/";
         }
     }
@@ -49,7 +50,6 @@ public class LoginController {
 
     @PostMapping(value = "/login")
     public String loginPost(@Valid LoginForm loginForm, BindingResult bindingResult, Model model) throws NoSuchAlgorithmException{
-        model.addAttribute("loginForm", new LoginForm());
         
         if(isLoggedIn(model)){
             return "redirect:/applications";

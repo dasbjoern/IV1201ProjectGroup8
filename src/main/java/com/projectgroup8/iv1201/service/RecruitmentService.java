@@ -200,6 +200,11 @@ public class RecruitmentService {
     }
 
     
+    /**
+     * Fetches one application for a person in a List. This is to make it compatible with application.html
+     * @param personId id of logged in user.
+     * @return an application
+     */
     public List<ApplicationListDTO> getApplication(long personId){
 
         List<ApplicationListDTO> dtoList = new ArrayList<ApplicationListDTO>();

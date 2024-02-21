@@ -6,11 +6,10 @@ import jakarta.validation.constraints.Size;
 
 public class LoginForm {
     
-    // @NotBlank(message = "Cannot be blank")
+
     @Size(min = 3, max = 30, message = " Username should be between 3 and 30 characters.")
     private String username;
 
-    // @NotBlank(message = "Cannot be blank")
     @Size(min = 3, max = 30, message = " Password should be between 3 and 30 characters.")
     private String password;
 

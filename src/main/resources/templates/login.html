@@ -8,9 +8,9 @@
     <p th:text="${loginErrorMessage}"></p>
     <form action='/login' method="post">
         <label for='username'>Username</label><br>
-        <input type='text' id='username' name='username' value=''><br>
+        <input type='text' id='username' name='username' value='' required><br>
         <label for='pass'>Password</label><br>
-        <input type='password' id='password' name='password' value=''><br><br>
+        <input type='password' id='password' name='password' value='' required><br><br>
         <input type='submit' value='login'>
     </form>
     <h1><p th:text="${username}"></p></h1>

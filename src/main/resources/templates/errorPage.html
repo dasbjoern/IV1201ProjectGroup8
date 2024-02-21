@@ -8,7 +8,7 @@
     <h2><a href='/'>home</a></h2><br>
     <h1>Something went wrong...</h1>
     <h2><p th:text="${errorMessage}"></p></h2>
-        <p th:text="${internalError}"></p>
+        <p th:if="${internalError}" th:text="${internalError}"></p>
 </div>
 </body>
 </html>

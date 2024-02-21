@@ -1,19 +1,18 @@
 package com.projectgroup8.iv1201.model;
 
-import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+/**
+ * An entity for the person table in the database
+ */
 @Entity
 @Table(name="person")
-public class Person{
+public class Person implements PersonDTO{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="person_id")
@@ -39,13 +38,24 @@ public class Person{
 
     @Column(name="username")
     private String username;
+    
+    @Column(name="salt")
+    private String salt;
 
     // @OneToMany(mappedBy = "person")
     // private List<Availability> availability;
     public Person(){
         
     }
-    
+    public Person(PersonDTO personDTO){
+        this.personId = personDTO.getPersonId();
+        this.name = personDTO.getName();
+        this.surname = personDTO.getSurname();
+        this.pnr = personDTO.getPnr();
+        this.email = personDTO.getEmail();
+        this.roleId = personDTO.getRoleId();
+        this.username = personDTO.getUsername();
+    }
     public void setPersonId(long personId){
         this.personId = personId;
     }
@@ -84,6 +94,12 @@ public class Person{
     public String getPassword(){
         return this.password;
     }
+    public void setSalt(String salt){
+        this.salt = salt;
+    }
+    public String getSalt(){
+        return this.salt;
+    }
     public void setRoleId(long roleId){
         this.roleId = roleId;
     }
@@ -96,7 +112,11 @@ public class Person{
     public String getUsername(){
         return this.username;
     }
-    public boolean login(String password){
-       return this.password.equals(password);
+    public long login(String password){
+        if(this.password.equals(password)){
+            return this.personId;
+        }
+        else
+           return (long)-1;
     }
 }

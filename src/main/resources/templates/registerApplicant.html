@@ -11,12 +11,12 @@
         <h1>Register new user</h1>
         <p>Please enter your details</p>
         <form th:action="@{/registerApplicant}" th:object="${registerForm}" method="post">
-            <p><label for="registerName">Name</label>:<input type="text" th:field="*{name}" id="registerName"/></p>
-            <p><label for="registerSurname">Surname</label>:<input type="text" th:field="*{surname}" id="registerSurname"/></p>
-            <p><label for="registerPnr">Person number</label>:<input type="text" th:field="*{pnr}" id="registerPnr"/></p>
-            <p><label for="registerEmail">Email</label>:<input type="text" th:field="*{email}" id="registerEmail"/></p>
-            <p><label for="registerUsername">Username</label>:<input type="text" th:field="*{username}" id="registerUsername"/></p>
-            <p><label for="registerPassword">Password</label>:<input type="password" th:field="*{password}" id="registerPassword"/></p>
+            <p><label for="registerName">Name</label>:<input type="text" th:field="*{name}" id="registerName"/><span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span></p>
+            <p><label for="registerSurname">Surname</label>:<input type="text" th:field="*{surname}" id="registerSurname"/><span class="error" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span></p>
+            <p><label for="registerPnr">Person number</label>:<input type="text" th:field="*{pnr}" id="registerPnr"/><span class="error" th:if="${#fields.hasErrors('pnr')}" th:errors="*{pnr}"></span></p>
+            <p><label for="registerEmail">Email</label>:<input type="text" th:field="*{email}" id="registerEmail"/><span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></p>
+            <p><label for="registerUsername">Username</label>:<input type="text" th:field="*{username}" id="registerUsername"/><span class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span></p>
+            <p><label for="registerPassword">Password</label>:<input type="password" th:field="*{password}" id="registerPassword"/><span class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span></p>
             <p><input type="submit"/>
             </p>
         </form>

@@ -1,4 +1,3 @@
-# IV1201ProjectGroup8
 Use development branch.
 
 #For developing on own machine

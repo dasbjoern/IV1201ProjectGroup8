@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+    <div>
+        <h1>Edit application</h1>
+        <h2>Competences</h2>
+        <span th:each="currentCompetence: ${competences}">
+            <p th:text="${'Task: ' + currentCompetence.getCompetenceName() + ' | Years of experience: ' + currentCompetence.getYearsOfExperienceString()}"></p>
+            <!-- <form action='/applications' method='post'>
+                <button name="applicationToEdit" type="submit" th:value="${currentApp.getPersonId()}">Edit</button>
+                </form> -->
+        </span>
+        <h2>Availability</h2>
+        <span th:each="currentAvailability: ${availability}">
+            <p th:text="${'Start date: ' + currentAvailability.getFromDate().toString() + ' | End date: ' + currentAvailability.getToDate().toString()}"></p>
+        </span>
+    </div>
+</body>
+</html>

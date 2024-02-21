@@ -32,6 +32,9 @@ public class Application implements ApplicationDTO {
     @Column(name="status")
     private String status;
 
+    @Column(name="version")
+    private long version;
+
     public long getApplicationId(){
         return this.applicationId;
     }
@@ -45,11 +48,19 @@ public class Application implements ApplicationDTO {
     }
 
     public void setStatus(String newStatus){
-        if(!newStatus.equals("ACCEPTED") || !newStatus.equals("REJECTED") || !newStatus.equals("UNHANDLED")){
+        if(!(newStatus.equals("ACCEPTED") || newStatus.equals("REJECTED") || newStatus.equals("UNHANDLED"))){
             // Error handling here
             return;
         }
         this.status = newStatus;
+    }
+
+    public long getVersion(){
+        return this.version;
+    }
+
+    public void incrementVersion(){
+        this.version++;
     }
 
 

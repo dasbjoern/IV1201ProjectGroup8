@@ -19,7 +19,7 @@ import com.projectgroup8.iv1201.model.RecruitmentException;
 @SessionAttributes({"isLoggedIn", "personId"})
 public class ErrorHandler {
     // public static final String loginError = "loginErrorMessage";
-    // public static final String loginFailed = "Login failed.";
+    public static final String loginFailed = "Login failed.";
    
 
     // @GetMapping("/ErrorNoPerson")

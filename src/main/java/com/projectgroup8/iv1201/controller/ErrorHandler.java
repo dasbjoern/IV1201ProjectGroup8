@@ -62,9 +62,5 @@ public class ErrorHandler {
         return "errorPage";
     }
     
-    public class myException extends Exception { 
-        public myException(String errorMessage) {
-            super(errorMessage);
-        }
-    }
+  
 }

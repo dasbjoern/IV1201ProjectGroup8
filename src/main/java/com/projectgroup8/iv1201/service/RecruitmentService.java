@@ -189,8 +189,14 @@ public class RecruitmentService {
         return dtoList;
     }
 
-    public ApplicationDTO getApplication(long personId){
-        return (ApplicationDTO)applicationRepository.findByPersonId(personId);
+    public List<ApplicationListDTO> getApplication(long personId){
+
+        List<ApplicationListDTO> dtoList = new ArrayList<ApplicationListDTO>();
+        Application application = applicationRepository.findByPersonId(personId);
+        Person person = personRepository.findByPersonId(personId);
+        dtoList.add(new ApplicationListDTO(application, person));
+
+        return dtoList;
     }
 
 }

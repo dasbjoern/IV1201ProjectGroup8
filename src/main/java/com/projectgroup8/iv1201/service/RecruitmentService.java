@@ -82,11 +82,12 @@ public class RecruitmentService {
      * @param password the password
      * @return The person id if the username and password is correct, otherwise -1.
      */
-    public long login(String username, String password) throws NoSuchAlgorithmException{
-        
-        Person person = personRepository.findByUsername(username);
+    // public long login(String username, String password) throws NoSuchAlgorithmException{
+    public long login(LoginForm loginForm) throws NoSuchAlgorithmException{
+
+        Person person = personRepository.findByUsername(loginForm.getUsername());
         if(person != null)
-            return person.login(hashPassword(password, person.getSalt()));
+            return person.login(hashPassword(loginForm.getPassword(), person.getSalt()));
         return -1;
     }
 

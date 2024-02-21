@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import com.projectgroup8.iv1201.model.RecruitmentException;
+
 @Controller
 @ControllerAdvice
 // @SessionAttributes({"isLoggedIn", "personId"})
@@ -67,7 +69,7 @@ public class ErrorHandler {
     }
     @ExceptionHandler(NoSuchAlgorithmException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public String SHAError(Model model, Exception e){
+    public String passwordSHAException(Model model, Exception e){
         model.addAttribute("errorMessage", "Internal Server Error. Cryptation algorithm is not available.");
         
         //TEMP should not be in view.
@@ -76,6 +78,16 @@ public class ErrorHandler {
         return "errorPage";
     }
     
+    @ExceptionHandler(RecruitmentException.class)
+    @ResponseStatus(HttpStatus.OK)
+    public String recruitException(Model model, RecruitmentException exceptionMessage){
+        model.addAttribute("errorMessage", "recruitment exception");
+        
+        //TEMP should not be in view.
+        // model.addAttribute("internalError", e);
+
+        return "errorPage";
+    }
     
   
 }

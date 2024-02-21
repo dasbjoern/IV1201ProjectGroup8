@@ -7,7 +7,7 @@
 <div>
     <h2><a href='/'>Back</a></h2><br>
     <!-- Inspired by: https://github.com/KTH-IV1201/bank/blob/master/src/main/resources/web-root/select-acct.html -->
-    <section>
+    <section th:align="center">
         <h1>Register new user</h1>
         <p>Please enter your details</p>
         <form th:action="@{/registerApplicant}" th:object="${registerForm}" method="post">

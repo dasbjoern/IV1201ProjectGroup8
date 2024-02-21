@@ -70,7 +70,7 @@ public class RecruitmentController {
 	 * @param registerForm	The register form
 	 */
 	@PostMapping("/registerApplicant")
-	public String registerApplicant(@Valid RegisterForm registerForm, BindingResult bindingResult, Model model) throws NoSuchAlgorithmException{
+	public String registerApplicant(@Valid RegisterForm registerForm, BindingResult bindingResult, Model model) throws NoSuchAlgorithmException {
 		if(isLoggedIn(model)){
 			return "redirect:/";
 		}
@@ -78,7 +78,7 @@ public class RecruitmentController {
 		if(bindingResult.hasErrors()){
 			return "registerApplicant";
 		}
-		
+		try{
 		if(recruitmentService.registerApplicant(registerForm)){
 			model.addAttribute("loginErrorMessage", "Account Created.");
 			model.addAttribute("isLoggedIn", true);
@@ -87,6 +87,13 @@ public class RecruitmentController {
 			model.addAttribute("loginErrorMessage", "Could not create account.");
 
 		return "home";
+		
+		}catch(org.springframework.dao.DataIntegrityViolationException e){
+			model.addAttribute("loginErrorMessage", ErrorHandler.parseRegisterException(e));
+			model.addAttribute("loginForm", new LoginForm());
+
+			return "home";
+		}
 	}
 
 

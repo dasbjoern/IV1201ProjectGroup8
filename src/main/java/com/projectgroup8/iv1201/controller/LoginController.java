@@ -22,8 +22,12 @@ import com.projectgroup8.iv1201.model.RegisterForm;
 @Controller
 @SessionAttributes({"isLoggedIn", "personId"})
 public class LoginController {
-    // private boolean isLoggedIn = false;
     
+    /**
+     * Creates isLoggedIn attribute and adds it to the model if it does not exist and returns it otherwise.
+     * @param model
+     * @return isLoggedIn model and session attribute
+     */
     @ModelAttribute("isLoggedIn")
     public boolean isLoggedIn(Model model){
         if(model.getAttribute("isLoggedIn") == null)
@@ -35,6 +39,11 @@ public class LoginController {
     @Autowired
     private RecruitmentService recruitmentService;
     
+    /**
+     * Redirects to appropriate page if logged in
+     * @param model
+     * @return
+     */
     @GetMapping("/login")
     public String loginGet(Model model){
         
@@ -48,6 +57,15 @@ public class LoginController {
     }
     
 
+    /**
+     * Login method, checks username and password entered via the login form and compares it to the database. 
+     * Redirects if already logged in.
+     * @param loginForm Check contraints for input before calling the database.
+     * @param bindingResult Returns errors if wrong input in form.
+     * @param model
+     * @return redirects if logged in otherwise returns home.
+     * @throws NoSuchAlgorithmException Throws error if cryptographic algorithm is not found.
+     */
     @PostMapping(value = "/login")
     public String loginPost(@Valid LoginForm loginForm, BindingResult bindingResult, Model model) throws NoSuchAlgorithmException{
         
@@ -74,6 +92,11 @@ public class LoginController {
         return "redirect:/";
     }
 
+    /**
+     * Used to let user logout by setting the isLoggedIn flag to false.
+     * @param model
+     * @return redirects to home page.
+     */
     @GetMapping("/logout")
     public String logout(Model model){
         model.addAttribute("isLoggedIn", false);

@@ -8,28 +8,20 @@
     <h2><a href='/logout'>Logout</a></h2><br>
 
     
-    <span th:if="${!isLoggedIn}">
+    <span th:if="${!isLoggedIn}" th:align="center">
         <p th:text="${loginErrorMessage}"></p>
         <form th:action="@{/login}" th:object="${loginForm}" method="post">
-            <label for="loginUsername">Username</label>:<input type="text" th:field="*{username}" id="loginUsername"/><span class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span><br>
-            <label for="loginPassword">Password</label>:<input type="password" th:field="*{password}" id="loginPassword"/><span class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span><br>
-            <input type='submit' value='Login'> 
+            <label for="loginUsername">Username</label>:<input type="text" th:field="*{username}" id="loginUsername"/><br>
+            <label for="loginPassword">Password</label>:<input type="password" th:field="*{password}" id="loginPassword"/><br>
+            <input type='submit' value='Login' th:align="center"><br>
+            <span class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+            <span class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span> 
         </form>
-        
-        <!-- <form action='/login' method="post">
-            <label for='username'>Username</label><br>
-            <input type='text' id='username' name='username' value='' required th:minlength="3" th:maxlength="255"><span th:if="${userErrorMessage}" th:text="${userErrorMessage}"></span><br>
-            <label for='pass'>Password</label><br>
-            <input type='password' id='password' name='password' value='' required><br><br>
-            <input type='submit' value='Login'> 
-        </form> -->
-        <br>
         <form action='/registerApplicant' method='get'>
             <button name="register" type="submit" value="regiser"> Create Account</button>
             </form>
-        
     </span>
-
+    
     <span th:if="${isLoggedIn}">
         <h2><p th:text="${name}">Test</p></h1>
 

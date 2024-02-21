@@ -82,7 +82,7 @@ public class RecruitmentService {
      * @param password the password
      * @return The person id if the username and password is correct, otherwise -1.
      */
-    public long login(String username, String password){
+    public long login(String username, String password) throws NoSuchAlgorithmException{
         
         Person person = personRepository.findByUsername(username);
         if(person != null)
@@ -95,7 +95,7 @@ public class RecruitmentService {
      * @param registerForm The form containing the information of the applicant
      * @return <code>true</code> if the user was successfully registered, otherwise <code>false</code>
      */
-    public boolean registerApplicant(RegisterForm registerForm) throws IllegalArgumentException {
+    public boolean registerApplicant(RegisterForm registerForm) throws IllegalArgumentException, NoSuchAlgorithmException {
         Person personEntity = new Person();
 
         personEntity.setName(registerForm.getName());
@@ -150,24 +150,24 @@ public class RecruitmentService {
      * @param salt The salt
      * @return The hashed password
      */
-    private String hashPassword(String password, String salt){
+    private String hashPassword(String password, String salt) throws NoSuchAlgorithmException{
         
-        try{
+        // try{
             MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
             messageDigest.update(salt.getBytes());
 
             byte[] hashedPassword = messageDigest.digest(password.getBytes());
     
             return Base64.getEncoder().encodeToString(hashedPassword);
-        }
+        // }
         /**
          * TODO: HANDLE THIS IN SOME WAY
          */
-        catch(NoSuchAlgorithmException e){
-            e.printStackTrace();
-        }
+        // catch(NoSuchAlgorithmException e){
+        //     e.printStackTrace();
+        // }
 
-        return null;
+        // return null;
     }
 
     /**

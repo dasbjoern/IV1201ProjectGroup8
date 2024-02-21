@@ -1,5 +1,7 @@
 package com.projectgroup8.iv1201.controller;
 
+import java.security.NoSuchAlgorithmException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,6 +46,7 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public String registerException(Model model, Exception e){
         model.addAttribute("errorMessage", "Illegal arguments during registration.");
         
@@ -53,6 +56,7 @@ public class ErrorHandler {
         return "errorPage";
     }
     @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public String myException(Model model, Exception e){
         model.addAttribute("errorMessage", "Exception");
         
@@ -61,6 +65,17 @@ public class ErrorHandler {
 
         return "errorPage";
     }
+    @ExceptionHandler(NoSuchAlgorithmException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public String SHAError(Model model, Exception e){
+        model.addAttribute("errorMessage", "Internal Server Error. Cryptation algorithm is not available.");
+        
+        //TEMP should not be in view.
+        // model.addAttribute("internalError", e);
+
+        return "errorPage";
+    }
+    
     
   
 }

@@ -24,7 +24,6 @@ import javax.xml.crypto.Data;
 @EnableWebMvc
 @Configuration
 @EnableTransactionManagement
-@PropertySource(value = "classpath:config.properties", ignoreResourceNotFound = true)
 public class ConfigureApp {
     
 

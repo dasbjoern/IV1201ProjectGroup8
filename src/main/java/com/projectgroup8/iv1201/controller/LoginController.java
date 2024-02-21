@@ -1,5 +1,6 @@
 package com.projectgroup8.iv1201.controller;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,7 +40,7 @@ public class LoginController {
     
 
     @PostMapping(value = "/login")
-    public String loginPost(Model model, @RequestParam Map<String, String> loginParam){
+    public String loginPost(Model model, @RequestParam Map<String, String> loginParam) throws NoSuchAlgorithmException{
 
         if(isLoggedIn(model)){
             return "redirect:/applications";

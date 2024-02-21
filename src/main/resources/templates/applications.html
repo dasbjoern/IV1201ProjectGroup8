@@ -12,7 +12,8 @@
     <span th:each="currentApp: ${applicationList}">
         <p th:text="${currentApp.getName() + ' ' + currentApp.getSurname() + ' | Status: ' + currentApp.getStatus()}"></p>
         <form action='/applications' method='post'>
-            <button name="applicationToEdit" type="submit" th:value="${currentApp.getPersonId()}">Edit</button>
+            <input type="hidden" name="version" th:value="${currentApp.getVersion()}">
+            <button name="appPersonId" type="submit" th:value="${currentApp.getPersonId()}">Edit</button>
             </form>
 </div>
 </body>

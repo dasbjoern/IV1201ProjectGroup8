@@ -2,6 +2,7 @@ package com.projectgroup8.iv1201.model;
 
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 /**
  * A form for when a new person is registered
@@ -9,16 +10,22 @@ import jakarta.validation.constraints.NotBlank;
  */
 public class RegisterForm {
     @NotBlank(message = "Name must be specified")
+    @Size(message = "The name must be between 2 and 30 characters long", min = 2, max = 30)
     private String name;
     @NotBlank(message = "Surname must be specified")
+    @Size(message = "The surname must be between 2 and 30 characters long", min = 2, max = 30)
     private String surname;
     @NotBlank(message = "Person number must be specified")
+    @Size(message = "The person number must be between 10 and 13 characters long", min = 10, max = 13)
     private String pnr;
     @NotBlank(message = "E-mail must be specified")
+    @Size(message = "The email must be between 5 and 50 characters long", min = 5, max = 50)
     private String email;
     @NotBlank(message = "Password must be specified")
+    @Size(message = "The password must be between 3 and 30 characters long", min = 3, max = 30)
     private String password;
     @NotBlank(message = "Username must be specified")
+    @Size(message = "The username must be between 3 and 30 characters long", min = 3, max = 30)
     private String username;
 
     public void setName(String name){

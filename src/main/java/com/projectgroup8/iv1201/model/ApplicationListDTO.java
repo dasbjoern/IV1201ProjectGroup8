@@ -6,11 +6,13 @@ public class ApplicationListDTO {
     private String status;
     private String name;
     private String surname;
+    private long version;
 
     public ApplicationListDTO(Application app, Person person){
         this.applicationId = app.getApplicationId();
         this.personId = app.getPersonId();
         this.status = app.getStatus();
+        this.version = app.getVersion();
         this.name = person.getName();
         this.surname = person.getSurname();
     }
@@ -33,5 +35,9 @@ public class ApplicationListDTO {
 
     public String getSurname(){
         return this.surname;
+    }
+
+    public long getVersion(){
+        return this.version;
     }
 }

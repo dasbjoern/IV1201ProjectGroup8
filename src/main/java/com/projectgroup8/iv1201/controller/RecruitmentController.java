@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import com.projectgroup8.iv1201.service.RecruitmentService;
+import com.projectgroup8.iv1201.model.LoginForm;
 import com.projectgroup8.iv1201.model.RegisterForm;
 
 
@@ -45,8 +46,10 @@ public class RecruitmentController {
 		if(isLoggedIn(model)){
 			return "redirect:/applications";
 		}
-		else
+		else{
+			model.addAttribute("loginForm", new LoginForm());
 			return "home";
+		}
 	}
 
 	/**
@@ -86,5 +89,7 @@ public class RecruitmentController {
 		return "home";
 	}
 
+
+	
 
 }

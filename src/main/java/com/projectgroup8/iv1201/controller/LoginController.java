@@ -41,7 +41,7 @@ public class LoginController {
         if(isLoggedIn(model))
             return "redirect:/applications";
         else{    
-            model.addAttribute("loginForm", new LoginForm());
+            // model.addAttribute("loginForm", new LoginForm());
             
             return "redirect:/";
         }
@@ -55,10 +55,9 @@ public class LoginController {
             return "redirect:/applications";
         }
         if(bindingResult.hasErrors()){
-			return "redirect:/";
+			return "home";
 		}
-        if((true)){
-            if(true){
+       
                 
                 // long id = recruitmentService.login((String)loginParam.get("username"), (String)loginParam.get("password"));
                 long id = recruitmentService.login(loginForm);
@@ -70,9 +69,8 @@ public class LoginController {
                     model.addAttribute("name", person.getName());  
                 }
                 else
-                    model.addAttribute("loginErrorMessage", ErrorHandler.loginFailed);
-            }         
-        }
+                    model.addAttribute("loginErrorMessage", ErrorHandler.loginFailed);      
+                           
         return "redirect:/";
     }
 

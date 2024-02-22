@@ -7,6 +7,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * An entity for an application table in the database
+ */
+
 @Entity
 @Table(name="application")
 public class Application implements ApplicationDTO {
@@ -32,6 +36,9 @@ public class Application implements ApplicationDTO {
     @Column(name="status")
     private String status;
 
+    @Column(name="version")
+    private long version;
+
     public long getApplicationId(){
         return this.applicationId;
     }
@@ -44,12 +51,19 @@ public class Application implements ApplicationDTO {
         return this.status;
     }
 
-    public void setStatus(String newStatus){
-        if(!newStatus.equals("ACCEPTED") || !newStatus.equals("REJECTED") || !newStatus.equals("UNHANDLED")){
-            // Error handling here
-            return;
+    public void setStatus(String newStatus) throws RecruitmentException{
+        if(!(newStatus.equals("ACCEPTED") || newStatus.equals("REJECTED") || newStatus.equals("UNHANDLED"))){
+           throw new RecruitmentException("Invalid application status");
         }
         this.status = newStatus;
+    }
+
+    public long getVersion(){
+        return this.version;
+    }
+
+    public void incrementVersion(){
+        this.version++;
     }
 
 

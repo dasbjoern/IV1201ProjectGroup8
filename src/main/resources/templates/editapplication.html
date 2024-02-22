@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+    .editApplication{
+        padding-left: 64px;
+    }
+    </style>
+</head>
+<body>
+    <div class = editApplication>
+        <h1>Application</h1>
+        <span th:if="${isRecruiter}">
+        <h1>Edit</h1>
+        </span>
+        <h2>Competences</h2>
+        <span th:each="currentCompetence: ${competences}">
+            <p th:text="${'Task: ' + currentCompetence.getCompetenceName() + ' | Years of experience: ' + currentCompetence.getYearsOfExperienceString()}"></p>
+            <!-- <form action='/applications' method='post'>
+                <button name="applicationToEdit" type="submit" th:value="${currentApp.getPersonId()}">Edit</button>
+                </form> -->
+        </span>
+        <h2>Availability</h2>
+        <span th:each="currentAvailability: ${availability}">
+            <p th:text="${'Start date: ' + currentAvailability.getFromDate().toString() + ' | End date: ' + currentAvailability.getToDate().toString()}"></p>
+        </span>
+        <!-- Drop down menu inspired by https://blog.hubspot.com/website/html-dropdown -->
+        <span th:if="${isRecruiter}">
+        <form action='/applications' method='post'>
+            <select name="status" id="status"> 
+                <option value="ACCEPTED">Accepted</option> 
+                <option value="REJECTED">Rejected</option> 
+            </select>
+            <input type="hidden" name="version" th:value="${version}">
+            <button name="appPersonId" type="submit" th:value="${appPersonId}">Update status</button>
+        </form>
+    </span>
+        <form action='/applications' method='get'>
+            <button type="submit">Back</button>
+        </form>
+
+    </div>
+</body>
+</html>

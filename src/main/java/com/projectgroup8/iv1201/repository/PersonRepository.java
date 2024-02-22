@@ -7,6 +7,7 @@ import com.projectgroup8.iv1201.model.Person;
 
 /**
  * A repository for the person table in the database
+ * Inspired by: https://github.com/KTH-IV1201/bank/blob/master/src/main/java/se/kth/iv1201/appserv/bank/repository/AccountRepository.java
  */
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long>{
@@ -15,4 +16,6 @@ public interface PersonRepository extends JpaRepository<Person, Long>{
     public Person findByPnr(String personNumber);
     public Person findByEmail(String email);
     public List<Person> findAll();
+    public List<Person> findByPersonIdInOrderByPersonIdAsc(List<Long> personIdList);
+    // public List<Person> findAllByPerson_idOrderByPerson_idAsc(List<Long> personId);
 }   

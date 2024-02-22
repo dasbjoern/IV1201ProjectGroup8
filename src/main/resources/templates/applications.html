@@ -2,11 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+      .appList{
+        display: flex;
+      }  
+    .applications{
+        padding-left: 64px;
+    }
+    </style>
 </head>
 <body>
-<div>
+<div class="applications">
+    <h2><a href='/logout'>Logout</a></h2><br>
     <h1>Applications</h1>
-    <h2><p th:text="${statusTest}">Test</p></h1>
+    <!-- <h2><p th:text="${statusTest}">Test</p></h1> -->
+    <!-- <h2><p th:text="${surnameTest}">Test</p></h1> -->
+     <div th:align="right">   
+    <span class="appList" th:each="currentApp: ${applicationList}">
+        <p th:text="${currentApp.getName() + ' ' + currentApp.getSurname() + ' | Status: ' + currentApp.getStatus()}"></p>
+        <form action='/applications' method='post'>
+            <input type="hidden" name="version" th:value="${currentApp.getVersion()}">
+            <button name="appPersonId" type="submit" th:value="${currentApp.getPersonId()}">View</button>
+            </form>
+    </span>
+     </div>
 </div>
 </body>
 </html>

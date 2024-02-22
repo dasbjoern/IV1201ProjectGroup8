@@ -31,6 +31,9 @@
             <input type="hidden" name="version" th:value="${version}">
             <button name="appPersonId" type="submit" th:value="${appPersonId}">Update status</button>
         </form>
+        <form action='/applications' method='get'>
+            <button type="submit">Back</button>
+        </form>
     </div>
 </body>
 </html>

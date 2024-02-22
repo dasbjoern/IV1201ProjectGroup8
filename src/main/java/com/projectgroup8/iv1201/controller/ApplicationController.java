@@ -46,6 +46,11 @@ public class ApplicationController {
 
 
 
+/**
+ * Handles get requests to the path /applications and views all applications.
+ * @param model 
+ * @return If succesful, the applications html page. If not, errorPage html page.
+ */
 @GetMapping("/applications")
 	public String viewAllApplications(Model model) {
 		if(!isLoggedIn(model)){
@@ -69,6 +74,15 @@ public class ApplicationController {
 		}
 	}
 
+/**
+ * Handles post requests to the path /applications and presents detailed information
+ * about a single application.
+ * @param appPersonId ID of person associated with the application
+ * @param model
+ * @param status New status of the application
+ * @param version Version number of the last fetched instance of the application
+ * @return html pages depending on the request
+ */
 @PostMapping("/applications")
 	public String editApplication(@RequestParam(name = "appPersonId", required=false) Long appPersonId, Model model, 
 									@RequestParam(name = "status", required=false) String status,

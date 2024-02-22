@@ -77,6 +77,12 @@ public class RecruitmentService {
         return infoList;
     }
 
+    /**
+     * Fetches all availability entries associated with a given person ID, then converts to
+     * a list of DTOs.
+     * @param personId The ID of the person for which the associated availabilities are sought
+     * @return A list of DTOs containing the data from an availability entry
+     */
     public ArrayList<AvailabilityDTO> getAvailability(long personId){
         ArrayList<AvailabilityDTO> availabilityDTOList = new ArrayList<AvailabilityDTO>();
         List<Availability> availabilityList = availabilityRepository.findAllByPersonId(personId);

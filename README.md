@@ -27,13 +27,13 @@ In terminal
 
 Go into /IV1201ProjectGroup8 directory
 
-Build with maven to install and compile, files and dependencies
+Build with maven to install and compile files and dependencies
 ```
 mvn clean install
 ```
 Run
 ```
-mvn Spring-boot:run
+mvn spring-boot:run
 ```
 The web application will now run locally on:
 
@@ -45,7 +45,7 @@ Use the development branch for development.
 ```
 git switch development
 ```
-To merge with main a pull request must be created, easiest done directly within the repository on github.com
+To merge with main, a pull request must be created. Easiest done directly within the repository on github.com.
 
 ## Deployment
 
@@ -57,7 +57,7 @@ The web application will then automatically be deployed to the azure cloud:
 
 See main_recruitment-iv1201-pg8.yml in .github\workflow for more info.
 
-Secrets for the azure cloud authentication are saved in the repositories settings, secrets and variables, action secrets
+Secrets for the azure cloud authentication are saved in the repositories settings -> secrets and variables -> action secrets
 
 
 

@@ -27,6 +27,11 @@ public class RecruitmentController {
 	@Autowired
 	private RecruitmentService recruitmentService;
 
+	 /**
+     * Creates isLoggedIn attribute and adds it to the model if it does not exist and returns it otherwise.
+     * @param model
+     * @return isLoggedIn model and session attribute
+     */
 	@ModelAttribute("isLoggedIn")
     public boolean isLoggedIn(Model model){
         if(model.getAttribute("isLoggedIn") == null)

@@ -35,3 +35,33 @@ Run
 ```
 mvn Spring-boot:run
 ```
+The web application will now run
+
+locally:
+
+http://localhost:8080/
+
+cloud:
+
+https://recruitment-iv1201-pg8.azurewebsites.net/
+
+## Development
+
+Use the development branch for development.
+```
+git switch development
+```
+To merge with main a pull request must be created, easiest done directly within the repository on github.com
+
+## Deployment
+
+To deploy the web application, simply push or merge into the deploy Branch
+
+The web application will then automatically be deployed to the azure cloud. 
+
+See main_recruitment-iv1201-pg8.yml in .github\workflow for more info.
+
+Secrets for the azure cloud authentication are saved in the repositories settings, secrets and variables, action secrets
+
+
+

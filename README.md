@@ -1,30 +1,67 @@
-Use development branch.
 
-#For developing on own machine
+## Getting Started
+### Prerequisites
+* Maven build-tool
+* Java 17
+* Local or cloud postgresSQL database
 
+### Clone repository
+
+```
 git clone https://github.com/dasbjoern/IV1201ProjectGroup8.git
 
-cd IV1201ProjectGroup8
+```
+### Add config file for (postgresSQL) Database to run locally
+In folder '\IV1201ProjectGroup8\src\main\resources\'
 
-#with maven installed
+Create file config.properties and add the following lines:
+```
+spring.datasource.url=url
+spring.datasource.username=username
+spring.datasource.password=password
+```
+Swap out url, username and password with credentials for the local or cloud database.
 
-mvn install
+### Build and start web application
+In terminal
 
-#use ' mvn clean install ' if there are any problems with building.
+Go into /IV1201ProjectGroup8 directory
 
-java -jar /target/iv1201projectgroup8-0.0.1-SNAPSHOT.jar
+Build with maven to install and compile, files and dependencies
+```
+mvn clean install
+```
+Run
+```
+mvn Spring-boot:run
+```
+The web application will now run
 
-#version may differ.
+locally:
 
-#alternative
+http://localhost:8080/
 
-mvn compile
+cloud:
 
-mvn package 
+https://recruitment-iv1201-pg8.azurewebsites.net/
 
-java -jar /target/iv1201projectgroup8-0.0.1-SNAPSHOT.jar
+## Development
 
-#Server will run on localhost:8080
+Use the development branch for development.
+```
+git switch development
+```
+To merge with main a pull request must be created, easiest done directly within the repository on github.com
 
-#Can run with  
-mvn spring-boot:run
+## Deployment
+
+To deploy the web application, simply push or merge into the deploy Branch
+
+The web application will then automatically be deployed to the azure cloud. 
+
+See main_recruitment-iv1201-pg8.yml in .github\workflow for more info.
+
+Secrets for the azure cloud authentication are saved in the repositories settings, secrets and variables, action secrets
+
+
+

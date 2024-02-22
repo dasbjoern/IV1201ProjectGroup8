@@ -1,6 +1,7 @@
 package com.projectgroup8.iv1201.controller;
 
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -20,14 +21,6 @@ import com.projectgroup8.iv1201.model.RecruitmentException;
 public class ErrorHandler {
     // public static final String loginError = "loginErrorMessage";
     public static final String loginFailed = "Login failed.";
-   
-
-    // @GetMapping("/ErrorNoPerson")
-    // public String ErrorNoPerson(Model model){
-    //     model.addAttribute("errorMessage", "Error person cound not be found.");
-        
-    //     return "errorPage";
-    // }
 
     
     /**
@@ -66,7 +59,7 @@ public class ErrorHandler {
     }
     
     /**
-     * Handles exception 
+     * Handles generic exceptions
      * @param model
      * @param e
      * @return
@@ -74,7 +67,7 @@ public class ErrorHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public String myException(Model model, Exception e){
-        model.addAttribute("errorMessage", "Exception");
+        model.addAttribute("errorMessage", "Internal Server Error. Generic exception");
         
         //TEMP should not be in view.
         model.addAttribute("internalError", e);
@@ -98,6 +91,21 @@ public class ErrorHandler {
     }
     
     /**
+     * Catches any SQL exception when communicating with the database.
+     * @param model
+     * @param e
+     * @return error message to error page.
+     */
+    @ExceptionHandler(SQLException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public String dataBaseException(Model model, Exception e){
+        model.addAttribute("errorMessage", "Internal Server Error. A problem occured with the database.");
+ 
+
+        return "errorPage";
+    }
+    
+    /**
      * Handles buisness logic exceptions.
      * @param model
      * @param exceptionMessage
@@ -109,6 +117,29 @@ public class ErrorHandler {
 
         model.addAttribute("errorMessage", exceptionMessage.getMessage());
         
+        return "errorPage";
+    }
+    
+    /**
+     * Handles runtime exceptions, such as the database loosing connections and out of bounds exceptions
+     * @param model
+     * @param exceptionMessage
+     * @return error message to error page.
+     */
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public String runTimeException(Model model, RuntimeException exceptionMessage){
+        String errorMessage = "Internal Server Error. Runtime Exception";
+        if(exceptionMessage.getMessage().contains("EntityManager")){
+            errorMessage = "Internal Server Error. Database could not be reached. Try again later.";
+        }
+        if(exceptionMessage.getMessage().contains("OutOfBounds")){
+            errorMessage = "Internal Server Error. Value out of bounds.";
+        }
+        model.addAttribute("errorMessage", errorMessage);
+
+        //temp for finding errors
+        model.addAttribute("internalError", exceptionMessage);
         return "errorPage";
     }
 

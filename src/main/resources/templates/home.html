@@ -2,25 +2,36 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        .loginForm{
+            padding-left: 64px;
+        }
+        .loginButton{
+            padding-left: 70px;
+        }
+        .regButton{
+            padding-left: 70px;
+        }
+
+    </style>
 </head>
 <body>
-<div>
+<div class="loginForm">
     <h2><a href='/logout'>Logout</a></h2><br>
 
     
-    <span th:if="${!isLoggedIn}" th:align="center">
+    <span th:if="${!isLoggedIn}">
         <p th:text="${loginErrorMessage}"></p>
         <form th:action="@{/login}" th:object="${loginForm}" method="post">
-            <label for="loginUsername">Username</label>:<input type="text" th:field="*{username}" id="loginUsername"/><br>
-            <label for="loginPassword">Password</label>:<input type="password" th:field="*{password}" id="loginPassword"/><br>
-            <input type='submit' value='Login' th:align="center"><br>
-            <span class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
-            <span class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span> 
+            <label for="loginUsername">Username</label>:<input type="text" th:field="*{username}" id="loginUsername"/> <span class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span><br>
+            <label for="loginPassword">Password</label>:<input type="password" th:field="*{password}" id="loginPassword"/> <span class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span><br>
+            
+            <span class="loginButton"><input type='submit' value='Login' th:align="center"></span><br>
         </form>
-        <form action='/registerApplicant' method='get'>
-            <button name="register" type="submit" value="regiser"> Create Account</button>
+       <form action='/registerApplicant' method='get'>
+        <span class="regButton"> <button name="register" type="submit" value="regiser"> Create Account</button></span>
+        </span>
             </form>
-    </span>
     
     <span th:if="${isLoggedIn}">
         <h2><p th:text="${name}">Test</p></h1>

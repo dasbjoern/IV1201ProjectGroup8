@@ -21,6 +21,7 @@ import com.projectgroup8.iv1201.model.ApplicationListDTO;
 import com.projectgroup8.iv1201.model.AvailabilityDTO;
 import com.projectgroup8.iv1201.model.Person;
 import com.projectgroup8.iv1201.model.PersonDTO;
+import com.projectgroup8.iv1201.model.RecruitmentException;
 
 @Controller
 @SessionAttributes({"isLoggedIn", "personId"})
@@ -86,8 +87,10 @@ public class ApplicationController {
 @PostMapping("/applications")
 	public String editApplication(@RequestParam(name = "appPersonId", required=false) Long appPersonId, Model model, 
 									@RequestParam(name = "status", required=false) String status,
-									@RequestParam(name = "version", required=false) Long version){
-
+									@RequestParam(name = "version", required=false) Long version) throws RecruitmentException{
+		
+		model.addAttribute("isRecruiter", false);
+		
 		if(appPersonId == null){
 			return "redirect:/";
 		}
@@ -95,20 +98,16 @@ public class ApplicationController {
 			return "redirect:/";
 		}
 		if(status != null){
-			try{
-				recruitmentService.updateApplicationStatus(status, appPersonId, version);
-			}
-			catch(Exception e){
-				/********
-				 * TODO: HANDLE	
-				 */
-				e.printStackTrace();
-			}
 
+			recruitmentService.updateApplicationStatus(status, appPersonId, version);
 			
 			if(recruitmentService.getPerson((long)model.getAttribute("personId")).getRoleId() == 1){
 				List<ApplicationListDTO> allApplications = recruitmentService.getAllApplications();
 				model.addAttribute("applicationList", allApplications);
+				model.addAttribute("isRecruiter", true);
+			}else{
+				List<ApplicationListDTO> application = recruitmentService.getApplication((long)model.getAttribute("personId"));
+				model.addAttribute("applicationList", application);
 			}
 			
 			return "applications";
@@ -121,6 +120,8 @@ public class ApplicationController {
 		model.addAttribute("availability", availabilityList);
 		model.addAttribute("appPersonId", appPersonId);
 		model.addAttribute("version", version);
+		
+		
 		
 
 		return "editapplication";

@@ -176,15 +176,7 @@ public class RecruitmentService {
             byte[] hashedPassword = messageDigest.digest(password.getBytes());
     
             return Base64.getEncoder().encodeToString(hashedPassword);
-        // }
-        /**
-         * TODO: HANDLE THIS IN SOME WAY
-         */
-        // catch(NoSuchAlgorithmException e){
-        //     e.printStackTrace();
-        // }
-
-        // return null;
+       
     }
 
     /**

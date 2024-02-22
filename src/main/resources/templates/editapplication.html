@@ -10,7 +10,10 @@
 </head>
 <body>
     <div class = editApplication>
-        <h1>Edit application</h1>
+        <h1>Application</h1>
+        <span th:if="${isRecruiter}">
+        <h1>Edit</h1>
+        </span>
         <h2>Competences</h2>
         <span th:each="currentCompetence: ${competences}">
             <p th:text="${'Task: ' + currentCompetence.getCompetenceName() + ' | Years of experience: ' + currentCompetence.getYearsOfExperienceString()}"></p>
@@ -23,6 +26,7 @@
             <p th:text="${'Start date: ' + currentAvailability.getFromDate().toString() + ' | End date: ' + currentAvailability.getToDate().toString()}"></p>
         </span>
         <!-- Drop down menu inspired by https://blog.hubspot.com/website/html-dropdown -->
+        <span th:if="${isRecruiter}">
         <form action='/applications' method='post'>
             <select name="status" id="status"> 
                 <option value="ACCEPTED">Accepted</option> 
@@ -31,9 +35,11 @@
             <input type="hidden" name="version" th:value="${version}">
             <button name="appPersonId" type="submit" th:value="${appPersonId}">Update status</button>
         </form>
+    </span>
         <form action='/applications' method='get'>
             <button type="submit">Back</button>
         </form>
+
     </div>
 </body>
 </html>

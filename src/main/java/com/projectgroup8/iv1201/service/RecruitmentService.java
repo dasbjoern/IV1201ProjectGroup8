@@ -6,6 +6,7 @@ import java.security.SecureRandom;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import org.springframework.transaction.annotation.Propagation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,10 @@ import java.util.Base64;
 /**
  * The service that accesses the repositories of the Recruitment Database
  * Inspired by: https://github.com/KTH-IV1201/bank/blob/master/src/main/java/se/kth/iv1201/appserv/bank/application/BankService.java
+ * Transactional properties inspired by: https://www.youtube.com/watch?v=aHojA-dLTQw&list=PLMa3m98OdTRCi9Ce05vRMDwRJhA_wnraC&index=8
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
 public class RecruitmentService {
     
     @Autowired
@@ -38,7 +40,7 @@ public class RecruitmentService {
     /**
      * Gets a person by username
      * @param username The username
-     * @return A <code>Person</code> with the username. <ode>null</code> if no person was found
+     * @return A <code>Person</code> with the username. <code>null</code> if no person was found
      */
     public PersonDTO getPerson(long id){
         return new Person(personRepository.findByPersonId(id));
@@ -52,14 +54,18 @@ public class RecruitmentService {
         return competenceRepository.findByName(name);
     }
 
-    /**
-     * Fetches all competence profiles associated with a given person ID, then fetches all
-     * competence tables associated with these profiles. Creates a combined DTO for each pair
-     * of profile and competence.
-     * @param personId The ID of the person for which the associated competence profiles are sought
-     * @return A list of DTOs containing data from each profile and competence pair
-     */
-    public List<CompetenceInfoDTO> getCompetenceInfoList(long personId){
+    // Usage of wildcard in list of lists inspired by:
+    //      https://stackoverflow.com/questions/6987506/specific-generic-type-of-lists-within-a-list
+    public ArrayList<ArrayList<?>> getCompetenceAndAvailability(long personId){
+        ArrayList<CompetenceInfoDTO> competences = getCompetenceInfoList(personId);
+		ArrayList<AvailabilityDTO> availabilityList = getAvailability(personId);
+        ArrayList<ArrayList<?>> fullList = new ArrayList<ArrayList<?>>();
+        fullList.add(competences);
+        fullList.add(availabilityList);
+        return fullList;
+    }
+
+    public ArrayList<CompetenceInfoDTO> getCompetenceInfoList(long personId){
         List<CompetenceProfile> competenceProfileList = competenceProfileRepository.findAllByPersonId(personId);
         ArrayList<CompetenceInfoDTO> infoList = new ArrayList<CompetenceInfoDTO>();
         String competenceType;
@@ -85,21 +91,18 @@ public class RecruitmentService {
         return availabilityDTOList;
     }
 
-
-
- 
-
     /**
      * Logs in a user
      * @param username the username
      * @param password the password
      * @return The person id if the username and password is correct, otherwise -1.
      */
-    public long login(String username, String password){
-        
-        Person person = personRepository.findByUsername(username);
+    // public long login(String username, String password) throws NoSuchAlgorithmException{
+    public long login(LoginForm loginForm) throws NoSuchAlgorithmException{
+
+        Person person = personRepository.findByUsername(loginForm.getUsername());
         if(person != null)
-            return person.login(hashPassword(password, person.getSalt()));
+            return person.login(hashPassword(loginForm.getPassword(), person.getSalt()));
         return -1;
     }
 
@@ -107,8 +110,9 @@ public class RecruitmentService {
      * Registers a new applicant user
      * @param registerForm The form containing the information of the applicant
      * @return <code>true</code> if the user was successfully registered, otherwise <code>false</code>
+     * @throws IllegalArgumentException When 
      */
-    public boolean registerApplicant(RegisterForm registerForm) throws IllegalArgumentException {
+    public boolean registerApplicant(RegisterForm registerForm) throws IllegalArgumentException, NoSuchAlgorithmException {
         Person personEntity = new Person();
 
         personEntity.setName(registerForm.getName());
@@ -126,7 +130,6 @@ public class RecruitmentService {
         Person registeredPerson = personRepository.save(personEntity);
         
         return (registeredPerson.getPersonId() > 0);
-       
     }
 
     /**********************************************
@@ -163,24 +166,24 @@ public class RecruitmentService {
      * @param salt The salt
      * @return The hashed password
      */
-    private String hashPassword(String password, String salt){
+    private String hashPassword(String password, String salt) throws NoSuchAlgorithmException{
         
-        try{
+        // try{
             MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
             messageDigest.update(salt.getBytes());
 
             byte[] hashedPassword = messageDigest.digest(password.getBytes());
     
             return Base64.getEncoder().encodeToString(hashedPassword);
-        }
+        // }
         /**
          * TODO: HANDLE THIS IN SOME WAY
          */
-        catch(NoSuchAlgorithmException e){
-            e.printStackTrace();
-        }
+        // catch(NoSuchAlgorithmException e){
+        //     e.printStackTrace();
+        // }
 
-        return null;
+        // return null;
     }
 
     /**
@@ -203,6 +206,11 @@ public class RecruitmentService {
     }
 
     
+    /**
+     * Fetches one application for a person in a List. This is to make it compatible with application.html
+     * @param personId id of logged in user.
+     * @return an application
+     */
     public List<ApplicationListDTO> getApplication(long personId){
 
         List<ApplicationListDTO> dtoList = new ArrayList<ApplicationListDTO>();
@@ -211,6 +219,25 @@ public class RecruitmentService {
         dtoList.add(new ApplicationListDTO(application, person));
 
         return dtoList;
+    }
+
+    /**
+     * Updates the status of an application
+     * @param newStatus The new status 
+     * @param personId The person id
+     * @param oldVersion The old version
+     * @throws OutdatedVersionNumberException
+     */
+    public void updateApplicationStatus(String newStatus, long personId, long oldVersion) throws RecruitmentException{
+        Application applicationToUpdate = applicationRepository.findByPersonId(personId);
+
+        if(applicationToUpdate.getVersion() != oldVersion){
+            throw new RecruitmentException("The version to update is outdated");
+        }
+
+        applicationToUpdate.setStatus(newStatus);
+        applicationToUpdate.incrementVersion();
+        applicationRepository.save(applicationToUpdate);
     }
 
 }

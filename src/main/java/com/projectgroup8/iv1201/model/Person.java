@@ -30,14 +30,13 @@ public class Person implements PersonDTO{
 
     @Column(name="email")
     private String email;
-
+    
     @Column(name="password")
     private String password;
 
     @Column(name="role_id")
     private long roleId;
 
-    @Size(min = 5, max = 255)
     @Column(name="username")
     private String username;
     
@@ -114,6 +113,11 @@ public class Person implements PersonDTO{
     public String getUsername(){
         return this.username;
     }
+    /**
+     * Compares password with password in database
+     * @param password to be compared
+     * @return person id if the password is found, logging you in, otherwise -1.
+     */
     public long login(String password){
         if(this.password.equals(password)){
             return this.personId;

@@ -26,6 +26,11 @@ import com.projectgroup8.iv1201.model.PersonDTO;
 @SessionAttributes({"isLoggedIn", "personId"})
 public class ApplicationController {
 
+	 /**
+     * Creates isLoggedIn attribute and adds it to the model if it does not exist and returns it otherwise.
+     * @param model
+     * @return isLoggedIn model and session attribute
+     */
 	@ModelAttribute("isLoggedIn")
     public boolean isLoggedIn(Model model){
         if(model.getAttribute("isLoggedIn") == null)
@@ -65,18 +70,45 @@ public class ApplicationController {
 	}
 
 @PostMapping("/applications")
-	public String editApplication(@RequestParam(name = "applicationToEdit", required=false) String personId, Model model){
+	public String editApplication(@RequestParam(name = "appPersonId", required=false) Long appPersonId, Model model, 
+									@RequestParam(name = "status", required=false) String status,
+									@RequestParam(name = "version", required=false) Long version){
 
-		if(personId == null){
+		if(appPersonId == null){
 			return "redirect:/";
 		}
 		if(!isLoggedIn(model)){
 			return "redirect:/";
 		}
-        List<CompetenceInfoDTO> competences = recruitmentService.getCompetenceInfoList(Long.parseLong(personId));
+		if(status != null){
+			try{
+				recruitmentService.updateApplicationStatus(status, appPersonId, version);
+			}
+			catch(Exception e){
+				/********
+				 * TODO: HANDLE	
+				 */
+				e.printStackTrace();
+			}
+
+			
+			if(recruitmentService.getPerson((long)model.getAttribute("personId")).getRoleId() == 1){
+				List<ApplicationListDTO> allApplications = recruitmentService.getAllApplications();
+				model.addAttribute("applicationList", allApplications);
+			}
+			
+			return "applications";
+		}
+        
+		ArrayList<ArrayList<?>> combinedList = recruitmentService.getCompetenceAndAvailability(appPersonId);
+		ArrayList<CompetenceInfoDTO> competences = (ArrayList<CompetenceInfoDTO>)combinedList.get(0);
+		ArrayList<AvailabilityDTO> availabilityList = (ArrayList<AvailabilityDTO>)combinedList.get(1);
 		model.addAttribute("competences", competences);
-		ArrayList<AvailabilityDTO> availabilityList = recruitmentService.getAvailability(Long.parseLong(personId));
 		model.addAttribute("availability", availabilityList);
+		model.addAttribute("appPersonId", appPersonId);
+		model.addAttribute("version", version);
+		
+
 		return "editapplication";
 	}
 

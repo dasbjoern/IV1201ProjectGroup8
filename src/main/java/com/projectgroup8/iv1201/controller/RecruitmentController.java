@@ -1,6 +1,9 @@
 package com.projectgroup8.iv1201.controller;
 
 import jakarta.validation.Valid;
+
+import java.security.NoSuchAlgorithmException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import com.projectgroup8.iv1201.service.RecruitmentService;
+import com.projectgroup8.iv1201.model.LoginForm;
 import com.projectgroup8.iv1201.model.RegisterForm;
 
 
@@ -23,6 +27,11 @@ public class RecruitmentController {
 	@Autowired
 	private RecruitmentService recruitmentService;
 
+	 /**
+     * Creates isLoggedIn attribute and adds it to the model if it does not exist and returns it otherwise.
+     * @param model
+     * @return isLoggedIn model and session attribute
+     */
 	@ModelAttribute("isLoggedIn")
     public boolean isLoggedIn(Model model){
         if(model.getAttribute("isLoggedIn") == null)
@@ -38,12 +47,14 @@ public class RecruitmentController {
 	 * @return
 	 */
 	@GetMapping("/")
-	public String home(Model model) {
+	public String home(Model model) throws Exception{
 		if(isLoggedIn(model)){
 			return "redirect:/applications";
 		}
-		else
+		else{
+			model.addAttribute("loginForm", new LoginForm());
 			return "home";
+		}
 	}
 
 	/**
@@ -64,7 +75,7 @@ public class RecruitmentController {
 	 * @param registerForm	The register form
 	 */
 	@PostMapping("/registerApplicant")
-	public String registerApplicant(@Valid RegisterForm registerForm, BindingResult bindingResult, Model model){
+	public String registerApplicant(@Valid RegisterForm registerForm, BindingResult bindingResult, Model model) throws NoSuchAlgorithmException {
 		if(isLoggedIn(model)){
 			return "redirect:/";
 		}
@@ -72,7 +83,7 @@ public class RecruitmentController {
 		if(bindingResult.hasErrors()){
 			return "registerApplicant";
 		}
-		
+		try{
 		if(recruitmentService.registerApplicant(registerForm)){
 			model.addAttribute("loginErrorMessage", "Account Created.");
 			model.addAttribute("isLoggedIn", true);
@@ -81,7 +92,16 @@ public class RecruitmentController {
 			model.addAttribute("loginErrorMessage", "Could not create account.");
 
 		return "home";
+		
+		}catch(org.springframework.dao.DataIntegrityViolationException e){
+			model.addAttribute("loginErrorMessage", ErrorHandler.parseRegisterException(e));
+			model.addAttribute("loginForm", new LoginForm());
+
+			return "home";
+		}
 	}
 
+
+	
 
 }

@@ -2,9 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+    .editApplication{
+        padding-left: 64px;
+    }
+    </style>
 </head>
 <body>
-    <div>
+    <div class = editApplication>
         <h1>Edit application</h1>
         <h2>Competences</h2>
         <span th:each="currentCompetence: ${competences}">
@@ -17,6 +22,15 @@
         <span th:each="currentAvailability: ${availability}">
             <p th:text="${'Start date: ' + currentAvailability.getFromDate().toString() + ' | End date: ' + currentAvailability.getToDate().toString()}"></p>
         </span>
+        <!-- Drop down menu inspired by https://blog.hubspot.com/website/html-dropdown -->
+        <form action='/applications' method='post'>
+            <select name="status" id="status"> 
+                <option value="ACCEPTED">Accepted</option> 
+                <option value="REJECTED">Rejected</option> 
+            </select>
+            <input type="hidden" name="version" th:value="${version}">
+            <button name="appPersonId" type="submit" th:value="${appPersonId}">Update status</button>
+        </form>
     </div>
 </body>
 </html>

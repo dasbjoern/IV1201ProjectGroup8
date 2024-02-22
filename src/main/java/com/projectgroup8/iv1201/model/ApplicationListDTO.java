@@ -1,5 +1,9 @@
 package com.projectgroup8.iv1201.model;
 
+/*
+ * A DTO which does not represent a single object. It contains information from
+ * both Application and Person
+ */
 public class ApplicationListDTO {
     private long applicationId;
     private long personId;

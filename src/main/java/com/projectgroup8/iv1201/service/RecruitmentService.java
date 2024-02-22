@@ -9,6 +9,7 @@ import java.security.NoSuchAlgorithmException;
 import org.springframework.transaction.annotation.Propagation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.projectgroup8.iv1201.repository.*;
@@ -76,6 +77,12 @@ public class RecruitmentService {
         return infoList;
     }
 
+    /**
+     * Fetches all availability entries associated with a given person ID, then converts to
+     * a list of DTOs.
+     * @param personId The ID of the person for which the associated availabilities are sought
+     * @return A list of DTOs containing the data from an availability entry
+     */
     public ArrayList<AvailabilityDTO> getAvailability(long personId){
         ArrayList<AvailabilityDTO> availabilityDTOList = new ArrayList<AvailabilityDTO>();
         List<Availability> availabilityList = availabilityRepository.findAllByPersonId(personId);
@@ -169,22 +176,32 @@ public class RecruitmentService {
             byte[] hashedPassword = messageDigest.digest(password.getBytes());
     
             return Base64.getEncoder().encodeToString(hashedPassword);
-        // }
-        /**
-         * TODO: HANDLE THIS IN SOME WAY
-         */
-        // catch(NoSuchAlgorithmException e){
-        //     e.printStackTrace();
-        // }
-
-        // return null;
+       
     }
 
     /**
+     * Source: https://stackoverflow.com/questions/18987292/spring-crudrepository-findbyinventoryidslistlong-inventoryidlist-equivalen
      * Fetches all rows of the application table in the database. The Application
      * objects which are fetched are then casted to DTOs.
      * @return An ArrayList of ApplicationDTO objects, representing all rows of the application table
      */
+    public List<ApplicationListDTO> getAllApplications(){
+
+        // Sort.by(Sort.Direction.DESC, "personId")
+        List<Application> appList = applicationRepository.findAllByOrderByPersonIdAsc();
+        List<Long> personIdList = new ArrayList<>();
+        List<ApplicationListDTO> dtoList = new ArrayList<ApplicationListDTO>();
+        for(int i = 0; i < appList.size(); i++){
+            personIdList.add(appList.get(i).getPersonId());
+        }
+        List<Person> personList = personRepository.findByPersonIdInOrderByPersonIdAsc(personIdList);//,Sort.by(Sort.Direction.DESC, "person_id"));
+        for(int i = 0; i < appList.size(); i++){
+            dtoList.add(new ApplicationListDTO(appList.get(i), personList.get(i)));
+        }
+        return dtoList;
+    }
+    
+   /* OLD version
     public List<ApplicationListDTO> getAllApplications(){
         List<Application> appList = applicationRepository.findAll();
         List<Long> personIdList = new ArrayList<>();
@@ -193,13 +210,20 @@ public class RecruitmentService {
             personIdList.add(appList.get(i).getPersonId());
         }
         List<Person> personList = personRepository.findAllById(personIdList);
+        int personIndex = 0;
         for(int i = 0; i < appList.size(); i++){
-            dtoList.add(new ApplicationListDTO(appList.get(i), personList.get(i)));
+            for(int j = 0; j < personList.size(); j++){
+                if(appList.get(i).getPersonId() == personList.get(j).getPersonId()){
+                    personIndex = j;
+                    break;
+                }
+            }
+            dtoList.add(new ApplicationListDTO(appList.get(i), personList.get(personIndex)));
         }
         return dtoList;
     }
+    */
 
-    
     /**
      * Fetches one application for a person in a List. This is to make it compatible with application.html
      * @param personId id of logged in user.

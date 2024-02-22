@@ -1,6 +1,10 @@
 package com.projectgroup8.iv1201.model;
 import java.math.BigDecimal;
 
+/*
+ * A DTO which does not represent a single object. It contains information from
+ * both Competence and CompetenceProfile
+ */
 public class CompetenceInfoDTO {
     private long competenceId;
     private long competenceProfileId;

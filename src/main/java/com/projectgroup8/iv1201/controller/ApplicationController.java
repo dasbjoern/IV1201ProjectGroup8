@@ -90,7 +90,10 @@ public class ApplicationController {
 									@RequestParam(name = "version", required=false) Long version) throws RecruitmentException{
 		
 		model.addAttribute("isRecruiter", false);
-		
+		if(recruitmentService.getPerson((long)model.getAttribute("personId")).getRoleId() == 1){
+			model.addAttribute("isRecruiter", true);
+		}
+
 		if(appPersonId == null){
 			return "redirect:/";
 		}
@@ -101,10 +104,10 @@ public class ApplicationController {
 
 			recruitmentService.updateApplicationStatus(status, appPersonId, version);
 			
-			if(recruitmentService.getPerson((long)model.getAttribute("personId")).getRoleId() == 1){
+			if((boolean)model.getAttribute("isRecruiter")){
 				List<ApplicationListDTO> allApplications = recruitmentService.getAllApplications();
 				model.addAttribute("applicationList", allApplications);
-				model.addAttribute("isRecruiter", true);
+				
 			}else{
 				List<ApplicationListDTO> application = recruitmentService.getApplication((long)model.getAttribute("personId"));
 				model.addAttribute("applicationList", application);

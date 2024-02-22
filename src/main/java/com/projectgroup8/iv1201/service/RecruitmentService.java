@@ -9,6 +9,7 @@ import java.security.NoSuchAlgorithmException;
 import org.springframework.transaction.annotation.Propagation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.projectgroup8.iv1201.repository.*;
@@ -187,18 +188,21 @@ public class RecruitmentService {
     }
 
     /**
+     * Source: https://stackoverflow.com/questions/18987292/spring-crudrepository-findbyinventoryidslistlong-inventoryidlist-equivalen
      * Fetches all rows of the application table in the database. The Application
      * objects which are fetched are then casted to DTOs.
      * @return An ArrayList of ApplicationDTO objects, representing all rows of the application table
      */
     public List<ApplicationListDTO> getAllApplications(){
-        List<Application> appList = applicationRepository.findAll();
+
+        // Sort.by(Sort.Direction.DESC, "personId")
+        List<Application> appList = applicationRepository.findAllByOrderByPersonIdAsc();
         List<Long> personIdList = new ArrayList<>();
         List<ApplicationListDTO> dtoList = new ArrayList<ApplicationListDTO>();
         for(int i = 0; i < appList.size(); i++){
             personIdList.add(appList.get(i).getPersonId());
         }
-        List<Person> personList = personRepository.findAllById(personIdList);
+        List<Person> personList = personRepository.findByPersonIdInOrderByPersonIdAsc(personIdList);//,Sort.by(Sort.Direction.DESC, "person_id"));
         for(int i = 0; i < appList.size(); i++){
             dtoList.add(new ApplicationListDTO(appList.get(i), personList.get(i)));
         }

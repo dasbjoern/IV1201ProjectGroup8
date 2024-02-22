@@ -35,15 +35,9 @@ Run
 ```
 mvn Spring-boot:run
 ```
-The web application will now run
-
-locally:
+The web application will now run locally on:
 
 http://localhost:8080/
-
-cloud:
-
-https://recruitment-iv1201-pg8.azurewebsites.net/
 
 ## Development
 
@@ -57,7 +51,9 @@ To merge with main a pull request must be created, easiest done directly within 
 
 To deploy the web application, simply push or merge into the deploy Branch
 
-The web application will then automatically be deployed to the azure cloud. 
+The web application will then automatically be deployed to the azure cloud:
+
+    https://recruitment-iv1201-pg8.azurewebsites.net/
 
 See main_recruitment-iv1201-pg8.yml in .github\workflow for more info.
 

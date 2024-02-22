@@ -202,8 +202,30 @@ public class RecruitmentService {
         }
         return dtoList;
     }
-
     
+   /* OLD version
+    public List<ApplicationListDTO> getAllApplications(){
+        List<Application> appList = applicationRepository.findAll();
+        List<Long> personIdList = new ArrayList<>();
+        List<ApplicationListDTO> dtoList = new ArrayList<ApplicationListDTO>();
+        for(int i = 0; i < appList.size(); i++){
+            personIdList.add(appList.get(i).getPersonId());
+        }
+        List<Person> personList = personRepository.findAllById(personIdList);
+        int personIndex = 0;
+        for(int i = 0; i < appList.size(); i++){
+            for(int j = 0; j < personList.size(); j++){
+                if(appList.get(i).getPersonId() == personList.get(j).getPersonId()){
+                    personIndex = j;
+                    break;
+                }
+            }
+            dtoList.add(new ApplicationListDTO(appList.get(i), personList.get(personIndex)));
+        }
+        return dtoList;
+    }
+    */
+
     /**
      * Fetches one application for a person in a List. This is to make it compatible with application.html
      * @param personId id of logged in user.

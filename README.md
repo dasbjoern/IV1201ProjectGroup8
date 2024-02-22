@@ -1,30 +1,37 @@
-Use development branch.
 
-#For developing on own machine
+## Getting Started
+### Prerequisites
+* Maven build-tool
+* Java 17
+* Local or cloud postgresSQL database
 
+### Clone repository
+
+```
 git clone https://github.com/dasbjoern/IV1201ProjectGroup8.git
 
-cd IV1201ProjectGroup8
+```
+### Add config file for (postgresSQL) Database to run locally
+In folder '\IV1201ProjectGroup8\src\main\resources\'
 
-#with maven installed
+Create file config.properties and add the following lines:
+```
+spring.datasource.url=url
+spring.datasource.username=username
+spring.datasource.password=password
+```
+Swap out url, username and password with credentials for the local or cloud database.
 
-mvn install
+### Build and start web application
+In terminal
 
-#use ' mvn clean install ' if there are any problems with building.
+Go into /IV1201ProjectGroup8 directory
 
-java -jar /target/iv1201projectgroup8-0.0.1-SNAPSHOT.jar
-
-#version may differ.
-
-#alternative
-
-mvn compile
-
-mvn package 
-
-java -jar /target/iv1201projectgroup8-0.0.1-SNAPSHOT.jar
-
-#Server will run on localhost:8080
-
-#Can run with  
-mvn spring-boot:run
+Build with maven to install and compile, files and dependencies
+```
+mvn clean install
+```
+Run
+```
+mvn Spring-boot:run
+```

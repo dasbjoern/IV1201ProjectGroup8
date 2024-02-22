@@ -42,7 +42,7 @@ public class RecruitmentController {
 	 * @return
 	 */
 	@GetMapping("/")
-	public String home(Model model) {
+	public String home(Model model) throws Exception{
 		if(isLoggedIn(model)){
 			return "redirect:/applications";
 		}

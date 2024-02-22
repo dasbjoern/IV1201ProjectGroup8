@@ -12,6 +12,9 @@
         .regButton{
             padding-left: 70px;
         }
+        .loginFail{
+            padding-left: 70px;
+        }
 
     </style>
 </head>
@@ -21,7 +24,7 @@
 
     
     <span th:if="${!isLoggedIn}">
-        <p th:text="${loginErrorMessage}"></p>
+        <p class="loginFail" th:text="${loginErrorMessage}"></p>
         <form th:action="@{/login}" th:object="${loginForm}" method="post">
             <label for="loginUsername">Username</label>:<input type="text" th:field="*{username}" id="loginUsername"/> <span class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span><br>
             <label for="loginPassword">Password</label>:<input type="password" th:field="*{password}" id="loginPassword"/> <span class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span><br>

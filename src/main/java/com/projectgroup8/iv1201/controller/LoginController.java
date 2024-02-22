@@ -75,9 +75,7 @@ public class LoginController {
         if(bindingResult.hasErrors()){
 			return "home";
 		}
-       
-                
-                // long id = recruitmentService.login((String)loginParam.get("username"), (String)loginParam.get("password"));
+
                 long id = recruitmentService.login(loginForm);
                 PersonDTO person;
 
@@ -85,11 +83,14 @@ public class LoginController {
                     model.addAttribute("isLoggedIn", true);
                     model.addAttribute("personId", person.getPersonId());
                     model.addAttribute("name", person.getName());  
+                    return "redirect:/";
+
                 }
-                else
+                else{
                     model.addAttribute("loginErrorMessage", ErrorHandler.loginFailed);      
+                    return "home";
+                }
                            
-        return "redirect:/";
     }
 
     /**

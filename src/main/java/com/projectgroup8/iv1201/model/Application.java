@@ -7,6 +7,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * An entity for an application table in the database
+ */
+
 @Entity
 @Table(name="application")
 public class Application implements ApplicationDTO {

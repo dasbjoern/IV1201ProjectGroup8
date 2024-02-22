@@ -52,6 +52,13 @@ public class RecruitmentService {
         return competenceRepository.findByName(name);
     }
 
+    /**
+     * Fetches all competence profiles associated with a given person ID, then fetches all
+     * competence tables associated with these profiles. Creates a combined DTO for each pair
+     * of profile and competence.
+     * @param personId The ID of the person for which the associated competence profiles are sought
+     * @return A list of DTOs containing data from each profile and competence pair
+     */
     public List<CompetenceInfoDTO> getCompetenceInfoList(long personId){
         List<CompetenceProfile> competenceProfileList = competenceProfileRepository.findAllByPersonId(personId);
         ArrayList<CompetenceInfoDTO> infoList = new ArrayList<CompetenceInfoDTO>();
@@ -63,6 +70,12 @@ public class RecruitmentService {
         return infoList;
     }
 
+    /**
+     * Fetches all availability entries associated with a given person ID, then converts to
+     * a list of DTOs.
+     * @param personId The ID of the person for which the associated availabilities are sought
+     * @return A list of DTOs containing the data from an availability entry
+     */
     public ArrayList<AvailabilityDTO> getAvailability(long personId){
         ArrayList<AvailabilityDTO> availabilityDTOList = new ArrayList<AvailabilityDTO>();
         List<Availability> availabilityList = availabilityRepository.findAllByPersonId(personId);
@@ -189,6 +202,7 @@ public class RecruitmentService {
         return dtoList;
     }
 
+    
     public List<ApplicationListDTO> getApplication(long personId){
 
         List<ApplicationListDTO> dtoList = new ArrayList<ApplicationListDTO>();

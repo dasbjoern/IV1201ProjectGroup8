@@ -72,8 +72,10 @@ public class RecruitmentService {
     }
 
     /**
-     * @param personId
-     * @return
+     * Fetches all competence profiles for a person and also fetches a competence
+     * entry for each profile
+     * @param personId ID of the person which the information is associated with
+     * @return A list containing a list of all competence information
      */
     public ArrayList<CompetenceInfoDTO> getCompetenceInfoList(long personId){
         List<CompetenceProfile> competenceProfileList = competenceProfileRepository.findAllByPersonId(personId);

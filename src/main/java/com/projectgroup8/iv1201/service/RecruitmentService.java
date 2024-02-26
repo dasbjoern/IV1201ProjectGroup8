@@ -245,7 +245,8 @@ public class RecruitmentService {
         List<ApplicationListDTO> dtoList = new ArrayList<ApplicationListDTO>();
         Application application = applicationRepository.findByPersonId(personId);
         Person person = personRepository.findByPersonId(personId);
-        dtoList.add(new ApplicationListDTO(application, person));
+        if(application != null)
+            dtoList.add(new ApplicationListDTO(application, person));
 
         return dtoList;
     }

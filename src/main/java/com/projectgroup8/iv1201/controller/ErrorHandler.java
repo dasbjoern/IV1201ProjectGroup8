@@ -35,7 +35,7 @@ public class ErrorHandler {
         model.addAttribute("errorMessage", "404 Page Not Found.");
         
         //TEMP should not be in view.
-        model.addAttribute("internalError", e);
+        // model.addAttribute("internalError", e);
 
         return "errorPage";
     }

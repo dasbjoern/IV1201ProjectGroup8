@@ -57,6 +57,11 @@ public class RecruitmentService {
 
     // Usage of wildcard in list of lists inspired by:
     //      https://stackoverflow.com/questions/6987506/specific-generic-type-of-lists-within-a-list
+    /**
+     * Fetches competence and availability information for a person.
+     * @param personId ID of the person which the information is associated with
+     * @return A list containing two lists of competences and availability
+     */
     public ArrayList<ArrayList<?>> getCompetenceAndAvailability(long personId){
         ArrayList<CompetenceInfoDTO> competences = getCompetenceInfoList(personId);
 		ArrayList<AvailabilityDTO> availabilityList = getAvailability(personId);
@@ -66,6 +71,12 @@ public class RecruitmentService {
         return fullList;
     }
 
+    /**
+     * Fetches all competence profiles for a person and also fetches a competence
+     * entry for each profile
+     * @param personId ID of the person which the information is associated with
+     * @return A list containing a list of all competence information
+     */
     public ArrayList<CompetenceInfoDTO> getCompetenceInfoList(long personId){
         List<CompetenceProfile> competenceProfileList = competenceProfileRepository.findAllByPersonId(personId);
         ArrayList<CompetenceInfoDTO> infoList = new ArrayList<CompetenceInfoDTO>();
@@ -234,7 +245,8 @@ public class RecruitmentService {
         List<ApplicationListDTO> dtoList = new ArrayList<ApplicationListDTO>();
         Application application = applicationRepository.findByPersonId(personId);
         Person person = personRepository.findByPersonId(personId);
-        dtoList.add(new ApplicationListDTO(application, person));
+        if(application != null)
+            dtoList.add(new ApplicationListDTO(application, person));
 
         return dtoList;
     }

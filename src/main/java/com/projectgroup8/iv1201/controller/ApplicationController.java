@@ -102,11 +102,13 @@ public class ApplicationController {
 		}
 		if(status != null){
 
-			recruitmentService.updateApplicationStatus(status, appPersonId, version);
 			
 			if((boolean)model.getAttribute("isRecruiter")){
+				recruitmentService.updateApplicationStatus(status, appPersonId, version);
+				
 				List<ApplicationListDTO> allApplications = recruitmentService.getAllApplications();
 				model.addAttribute("applicationList", allApplications);
+				
 				
 			}else{
 				List<ApplicationListDTO> application = recruitmentService.getApplication((long)model.getAttribute("personId"));
